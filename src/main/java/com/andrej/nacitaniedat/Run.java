@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
-import org.marc4j.marc.Record;
 
 /**
  *
