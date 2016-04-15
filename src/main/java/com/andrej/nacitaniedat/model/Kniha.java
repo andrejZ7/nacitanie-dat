@@ -20,6 +20,8 @@ public class Kniha implements Serializable {
     @GeneratedValue
     private Integer id;
     private String isbn;
+    private String autor;
+    private String vydavatelstvo;
 
     /**
      * @return the isbn
@@ -47,6 +49,34 @@ public class Kniha implements Serializable {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the vydavatelstvo
+     */
+    public String getVydavatelstvo() {
+        return vydavatelstvo;
+    }
+
+    /**
+     * @param vydavatelstvo the vydavatelstvo to set
+     */
+    public void setVydavatelstvo(String vydavatelstvo) {
+        this.vydavatelstvo = vydavatelstvo;
     }
     
 }
