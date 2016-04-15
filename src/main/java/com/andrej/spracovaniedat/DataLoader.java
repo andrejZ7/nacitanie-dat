@@ -1,5 +1,8 @@
 package com.andrej.spracovaniedat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author andrej
@@ -21,5 +24,38 @@ public class DataLoader {
             }
         }       
         return isbn;
+    }
+    
+    public String nacitajAutora(String line) {
+        Pattern p = Pattern.compile("\\*", Pattern.CASE_INSENSITIVE);
+        Pattern p2 = Pattern.compile("\\*p", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(line);
+        Matcher m2 = p2.matcher(line);
+        boolean obsahujeHviezdicku = m.find();
+        boolean obsahujeHviezdickuAjP = m2.find();
+        if (obsahujeHviezdickuAjP) {        //zistujem ci je pred ideckom *p alebo iba hviezdicka
+            String[] lineArray = line.split("\\*p");
+            String autor = lineArray[1].substring(0, 7);
+            return autor;
+        }
+        else if (obsahujeHviezdicku) {
+            String[] lineArray = line.split("\\*");
+            String autor = lineArray[1].substring(0, 7);
+            return autor; 
+        }
+        return "";
+        
+    }
+    
+    public String nacitajVydavatelstvo(String line) {
+        String[] lineArray = line.split("b");
+        if (lineArray.length >= 2) {    //zistit ci sa tam vobec vydavatelstvo nachadza            
+            String[] temp = lineArray[1].split(",");
+            String vydavatelstvo = temp[0];
+            return vydavatelstvo;
+        }
+        else {
+            return "";
+        }
     }
 }
