@@ -1,10 +1,12 @@
 package com.andrej.nacitaniedat;
 
-import com.andrej.nacitaniedat.model.KnihaPomocna;
+import com.andrej.nacitaniedat.model.Kniha;
+import com.andrej.spracovaniedat.DataLoader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -17,25 +19,35 @@ public class NacitanieKnih {
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
         
-        try (BufferedReader br = new BufferedReader(new FileReader("KlUsCat_more.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("KlUsCat.txt"))) {
             String line;
-            int count = 0;         
+            int count = 0;
+            String isbn;
+            DataLoader dataLoader = new DataLoader();
+           
+            EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
                       
             while ((line = br.readLine()) != null) {
-                while (line.equals(END_BOOK)) {
-                    KnihaPomocna knihaPom = new KnihaPomocna();
-                    if (line.startsWith(ISBN_TAG)) {
-                        String[] lineArray = line.split("a");                        
-                        String isbn;
-                        for (int i=0 ; i<lineArray[1].length() ; i++) {
-                            
+               // while (line.equals(END_BOOK)) {
+                    
+                    if (line.startsWith(ISBN_TAG)) {                        
+                        isbn = dataLoader.nacitajIsbn(line);
+                        if (!"".equals(isbn)) {
+                            Kniha kniha = new Kniha();
+                            kniha.setIsbn(isbn);
+                            em.getTransaction()
+                                .begin();
+                            em.persist(kniha);
+                            em.getTransaction()
+                                .commit();
                         }
-                        
                     }
-                    count++;
-                }
+                   
+              //  }
             }
-           
+            
+            em.close();
+            PersistenceManager.INSTANCE.close();
         }
 
     
