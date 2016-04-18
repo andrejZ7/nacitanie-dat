@@ -20,10 +20,10 @@ public class NacitanieKnih {
     private static String END_BOOK = "###";
     private static String ISBN_TAG = "020    a";
     private static String AUTOR_TAG = "100 1  7kl_us_auth*";
-    private static String VYDAVATELSTVO_TAG = "260    ";
+    private static String VYDAVATELSTVO_DATUM_TAG = "260    ";
     private static String MDT_TAG = "080    a";
     private static String MDT_COSM_TAG = "962    a";
-    private static String DATUM_TAG = "008    ";
+    private static String DATUM_TAG = "260    ";
 
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
@@ -54,13 +54,17 @@ public class NacitanieKnih {
                         autor = dataLoader.nacitajAutora(line);
                         kniha.setAutor(autor);
                     }
-                    else if (line.startsWith(VYDAVATELSTVO_TAG)) {
+                    else if (line.startsWith(VYDAVATELSTVO_DATUM_TAG)) {
                         vydavatelstvo = dataLoader.nacitajVydavatelstvo(line);
                         if (!"".equals(vydavatelstvo)) {
                             kniha.setVydavatelstvo(vydavatelstvo);
                         }
+                        datum = dataLoader.nacitajDatum(line);
+                        if (!"".equals(datum)){
+                            kniha.setDatum(datum);
+                        }                        
                     }
-                    else if (line.startsWith(MDT_TAG)) {
+                    else if (line.startsWith(MDT_TAG) && kniha.getIsbn() != null) { //tu sa presistuje mdt a nemoze sa ak to nie je kniha
                         mdtString = dataLoader.nacitajMdt(line);
                         Mdt mdt = new Mdt();
                         mdt.setMdt(mdtString);                        
@@ -69,7 +73,7 @@ public class NacitanieKnih {
                         mdt.setKnihaPomocna(kniha);                         
                         em.persist(mdt);                        
                     }
-                    else if (line.startsWith(MDT_COSM_TAG)){
+                    else if (line.startsWith(MDT_COSM_TAG) && kniha.getIsbn() != null){
                         mdtCosmString = dataLoader.nacitajMdtCosm(line);
                         if (mdtCosmString.indexOf('+') >= 0){       //ak obsahuje znak plus tak sa tam nachadza viac mdt a treba rozdelovat
                             String[] mdtList = mdtCosmString.split("\\+");
@@ -92,12 +96,6 @@ public class NacitanieKnih {
                         }
                         
                     }
-                    else if (line.startsWith(DATUM_TAG)) {
-                        datum = dataLoader.nacitajDatum(line);
-                        if (!"".equals(datum)){
-                            kniha.setDatum(datum);
-                        }
-                    }
                     else if (line.startsWith(END_BOOK)) {
                         if (kniha.getIsbn() != null){   //do DB sa ulozi iba ak ma ISBN teda je to kniha
                             em.getTransaction()
@@ -107,9 +105,9 @@ public class NacitanieKnih {
                                 .commit();
                             System.out.println("Autor: " + kniha.getAutor() + "***" + 
                                                "ISBN: " + kniha.getIsbn()  + "***" +                                           
-                                               "Vydavatelstvo: " + kniha.getVydavatelstvo() +   "***\n");
-                            kniha = new KnihaPomocna();
+                                               "Vydavatelstvo: " + kniha.getVydavatelstvo() +   "***\n");                            
                         }
+                        kniha = new KnihaPomocna();
                     }
                    
               //  }

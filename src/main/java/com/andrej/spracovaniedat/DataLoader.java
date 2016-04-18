@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class DataLoader {
     
-    public String nacitajIsbn(String line) {
+    public String nacitajIsbn(String line) {       
         String[] lineArray = line.split("a");   //ISBN je vzdy v lineArray[1]
         String isbn = "";
         for (int i=0 ; i<lineArray[1].length() ; i++) { //prehladavam lineArray[1] kym najdem cele ISBN
@@ -70,14 +70,12 @@ public class DataLoader {
         return lineArray[1];        
     }
     
-    public String nacitajDatum(String line) {
-        String[] lineArray = line.split("s");        
+    public String nacitajDatum(String line) {      
+        String[] lineArray = line.split("c");
         if (lineArray.length >= 2){
-            String[] returnedDate = lineArray[1].split("-");
-            return returnedDate[0];
+            return lineArray[1];
         }
-        else{
-            return "";
-        }
+        return "";
     }
+    
 }
