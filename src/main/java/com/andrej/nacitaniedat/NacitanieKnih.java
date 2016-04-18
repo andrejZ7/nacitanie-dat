@@ -52,7 +52,7 @@ public class NacitanieKnih {
                             kniha.setVydavatelstvo(vydavatelstvo);
                         }
                     }
-                    else if (line.startsWith("###")) {
+                    else if (line.startsWith(END_BOOK)) {
                         em.getTransaction()
                             .begin();
                         em.persist(kniha);
