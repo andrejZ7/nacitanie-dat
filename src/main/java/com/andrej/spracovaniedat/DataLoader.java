@@ -58,4 +58,26 @@ public class DataLoader {
             return "";
         }
     }
+    
+    public String nacitajMdt(String line) {
+        String[] lineArray = line.split("a");
+        String[] mdt = lineArray[1].split("");
+        return mdt[0];
+    }
+    
+    public String nacitajMdtCosm(String line) {
+        String[] lineArray = line.split("a");                    
+        return lineArray[1];        
+    }
+    
+    public String nacitajDatum(String line) {
+        String[] lineArray = line.split("s");        
+        if (lineArray.length >= 2){
+            String[] returnedDate = lineArray[1].split("-");
+            return returnedDate[0];
+        }
+        else{
+            return "";
+        }
+    }
 }

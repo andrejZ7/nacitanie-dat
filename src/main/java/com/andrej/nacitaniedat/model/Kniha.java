@@ -2,9 +2,13 @@
 package com.andrej.nacitaniedat.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,12 +20,16 @@ import javax.persistence.Table;
 @Table(name = "kniha")
 public class Kniha implements Serializable {
     
+    @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Mdt> MdtList;
+    
     @Id
     @GeneratedValue
     private Integer id;
     private String isbn;
     private String autor;
     private String vydavatelstvo;
+    private String datum;
 
     /**
      * @return the isbn
@@ -77,6 +85,34 @@ public class Kniha implements Serializable {
      */
     public void setVydavatelstvo(String vydavatelstvo) {
         this.vydavatelstvo = vydavatelstvo;
+    }
+
+    /**
+     * @return the MdtList
+     */
+    public List<Mdt> getMdtList() {
+        return MdtList;
+    }
+
+    /**
+     * @param MdtList the MdtList to set
+     */
+    public void setMdtList(List<Mdt> MdtList) {
+        this.MdtList = MdtList;
+    }
+
+    /**
+     * @return the datum
+     */
+    public String getDatum() {
+        return datum;
+    }
+
+    /**
+     * @param datum the datum to set
+     */
+    public void setDatum(String datum) {
+        this.datum = datum;
     }
     
 }
