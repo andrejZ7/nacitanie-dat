@@ -78,4 +78,15 @@ public class DataLoader {
         return "";
     }
     
+    public String nacitajKlucoveSlova(String line) {
+        String[] lineArray = line.split("a");
+        String[] returnedWords = lineArray[1].split("-");
+        return returnedWords[0];
+    }
+    
+    public String nacitajKlucoveSlovaIne(String line) {
+        String[] lineArray = line.split("a");        
+        return lineArray[1];
+    }
+    
 }

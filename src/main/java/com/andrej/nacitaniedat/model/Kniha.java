@@ -30,6 +30,7 @@ public class Kniha implements Serializable {
     private String autor;
     private String vydavatelstvo;
     private String datum;
+    private String klucoveSlova;
 
     /**
      * @return the isbn
@@ -113,6 +114,20 @@ public class Kniha implements Serializable {
      */
     public void setDatum(String datum) {
         this.datum = datum;
+    }
+
+    /**
+     * @return the klucoveSlova
+     */
+    public String getKlucoveSlova() {
+        return klucoveSlova;
+    }
+
+    /**
+     * @param klucoveSlova the klucoveSlova to set
+     */
+    public void setKlucoveSlova(String klucoveSlova) {
+        this.klucoveSlova = klucoveSlova;
     }
     
 }

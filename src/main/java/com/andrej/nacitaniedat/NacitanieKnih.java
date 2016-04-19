@@ -17,14 +17,14 @@ import javax.persistence.EntityManager;
  */
 public class NacitanieKnih {
     
-    private static String END_BOOK = "###";
-    private static String ISBN_TAG = "020    a";
-    private static String AUTOR_TAG = "100 1  7kl_us_auth*";
-    private static String VYDAVATELSTVO_DATUM_TAG = "260    ";
-    private static String MDT_TAG = "080    a";
-    private static String MDT_COSM_TAG = "962    a";
-    private static String DATUM_TAG = "260    ";
-
+    private final static String END_BOOK = "###";
+    private final static String ISBN_TAG = "020    a";
+    private final static String AUTOR_TAG = "100 1  7kl_us_auth*";
+    private final static String VYDAVATELSTVO_DATUM_TAG = "260    ";
+    private final static String MDT_TAG = "080    a";
+    private final static String MDT_COSM_TAG = "962    a";
+    private final static String KLUCOVE_SLOVA_TAG = "964    ";
+    private final static String KLUCOVE_SLOVA_INE_TAG = "653 0  ";
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
         
@@ -37,6 +37,7 @@ public class NacitanieKnih {
             String mdtString;
             String mdtCosmString;
             String datum;
+            String klucoveSlova;
             DataLoader dataLoader = new DataLoader();
             KnihaPomocna kniha = new KnihaPomocna();
            
@@ -96,6 +97,14 @@ public class NacitanieKnih {
                         }
                         
                     }
+                    else if (line.startsWith(KLUCOVE_SLOVA_TAG) && kniha.getKlucoveSlova() == null) {
+                        klucoveSlova = dataLoader.nacitajKlucoveSlova(line);
+                        kniha.setKlucoveSlova(klucoveSlova);
+                    }
+                    else if (line.startsWith(KLUCOVE_SLOVA_INE_TAG) && kniha.getKlucoveSlova() == null) {
+                        klucoveSlova = dataLoader.nacitajKlucoveSlovaIne(line);
+                        kniha.setKlucoveSlova(klucoveSlova);
+                    }
                     else if (line.startsWith(END_BOOK)) {
                         if (kniha.getIsbn() != null){   //do DB sa ulozi iba ak ma ISBN teda je to kniha
                             em.getTransaction()
@@ -105,7 +114,7 @@ public class NacitanieKnih {
                                 .commit();
                             System.out.println("Autor: " + kniha.getAutor() + "***" + 
                                                "ISBN: " + kniha.getIsbn()  + "***" +                                           
-                                               "Vydavatelstvo: " + kniha.getVydavatelstvo() +   "***\n");                            
+                                               "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");                            
                         }
                         kniha = new KnihaPomocna();
                     }
