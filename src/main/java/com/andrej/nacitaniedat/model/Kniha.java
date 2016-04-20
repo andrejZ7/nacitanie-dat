@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +32,9 @@ public class Kniha implements Serializable {
     private String vydavatelstvo;
     private String datum;
     private String klucoveSlova;
+    
+    @ManyToMany
+    private List<Kniha> pouzivatel;
 
     /**
      * @return the isbn
@@ -128,6 +132,20 @@ public class Kniha implements Serializable {
      */
     public void setKlucoveSlova(String klucoveSlova) {
         this.klucoveSlova = klucoveSlova;
+    }
+
+    /**
+     * @return the pouzivatel
+     */
+    public List<Kniha> getPouzivatel() {
+        return pouzivatel;
+    }
+
+    /**
+     * @param pouzivatel the pouzivatel to set
+     */
+    public void setPouzivatel(List<Kniha> pouzivatel) {
+        this.pouzivatel = pouzivatel;
     }
     
 }
