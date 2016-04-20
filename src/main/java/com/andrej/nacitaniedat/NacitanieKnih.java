@@ -25,7 +25,7 @@ public class NacitanieKnih {
     private final static String MDT_COSM_TAG = "962    a";
     private final static String KLUCOVE_SLOVA_TAG = "964    ";
     private final static String KLUCOVE_SLOVA_INE_TAG = "653 0  ";
-    private final static String KATALOGOVE_ID_TAG = "# @id";    
+    private final static String KATALOGOVE_ID_TAG = "# @id KlUsCat c";    ///////////////////////////////////////////zatial len pre jeden katalog
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
         
