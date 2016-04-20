@@ -45,87 +45,84 @@ public class NacitanieKnih {
            
             EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
                       
-            while ((line = br.readLine()) != null) {
-               // while (line.equals(END_BOOK)) {
-                    if (line.startsWith(KATALOGOVE_ID_TAG)) {
-                        katalogoveId = dataLoader.nacitajKatId(line);
-                        kniha.setKatalogoveId(katalogoveId);
+            while ((line = br.readLine()) != null) {              
+                if (line.startsWith(KATALOGOVE_ID_TAG)) {
+                    katalogoveId = dataLoader.nacitajKatId(line);
+                    kniha.setKatalogoveId(katalogoveId);
+                }
+                else if (line.startsWith(ISBN_TAG)) {                        
+                    isbn = dataLoader.nacitajIsbn(line);
+                    if (!"".equals(isbn)) {                            
+                        kniha.setIsbn(isbn);                            
                     }
-                    else if (line.startsWith(ISBN_TAG)) {                        
-                        isbn = dataLoader.nacitajIsbn(line);
-                        if (!"".equals(isbn)) {                            
-                            kniha.setIsbn(isbn);                            
-                        }
-                    }                    
-                    else if (line.startsWith(AUTOR_TAG)) {
-                        autor = dataLoader.nacitajAutora(line);
-                        kniha.setAutor(autor);
+                }                    
+                else if (line.startsWith(AUTOR_TAG)) {
+                    autor = dataLoader.nacitajAutora(line);
+                    kniha.setAutor(autor);
+                }
+                else if (line.startsWith(VYDAVATELSTVO_DATUM_TAG)) {
+                    vydavatelstvo = dataLoader.nacitajVydavatelstvo(line);
+                    if (!"".equals(vydavatelstvo)) {
+                        kniha.setVydavatelstvo(vydavatelstvo);
                     }
-                    else if (line.startsWith(VYDAVATELSTVO_DATUM_TAG)) {
-                        vydavatelstvo = dataLoader.nacitajVydavatelstvo(line);
-                        if (!"".equals(vydavatelstvo)) {
-                            kniha.setVydavatelstvo(vydavatelstvo);
-                        }
-                        datum = dataLoader.nacitajDatum(line);
-                        if (!"".equals(datum)){
-                            kniha.setDatum(datum);
-                        }                        
-                    }
-                    else if (line.startsWith(MDT_TAG) && kniha.getIsbn() != null) { //tu sa presistuje mdt a nemoze sa ak to nie je kniha
-                        mdtString = dataLoader.nacitajMdt(line);
-                        Mdt mdt = new Mdt();
-                        mdt.setMdt(mdtString);                        
-                        List<Mdt> MdtList = kniha.getMdtList();
-                        kniha.setMdtList(MdtList);
-                        mdt.setKnihaPomocna(kniha);                         
-                        em.persist(mdt);                        
-                    }
-                    else if (line.startsWith(MDT_COSM_TAG) && kniha.getIsbn() != null){
-                        mdtCosmString = dataLoader.nacitajMdtCosm(line);
-                        if (mdtCosmString.indexOf('+') >= 0){       //ak obsahuje znak plus tak sa tam nachadza viac mdt a treba rozdelovat
-                            String[] mdtList = mdtCosmString.split("\\+");
-                            for (int i=0 ; i<mdtList.length ; i++)  {
-                                Mdt mdt = new Mdt();
-                                mdt.setMdt(mdtList[i]);                        
-                                List<Mdt> MdtList = kniha.getMdtList();
-                                kniha.setMdtList(MdtList);
-                                mdt.setKnihaPomocna(kniha);                         
-                                em.persist(mdt); 
-                            }
-                        }
-                        else {
+                    datum = dataLoader.nacitajDatum(line);
+                    if (!"".equals(datum)){
+                        kniha.setDatum(datum);
+                    }                        
+                }
+                else if (line.startsWith(MDT_TAG) && kniha.getIsbn() != null) { //tu sa presistuje mdt a nemoze sa ak to nie je kniha
+                    mdtString = dataLoader.nacitajMdt(line);
+                    Mdt mdt = new Mdt();
+                    mdt.setMdt(mdtString);                        
+                    List<Mdt> MdtList = kniha.getMdtList();
+                    kniha.setMdtList(MdtList);
+                    mdt.setKnihaPomocna(kniha);                         
+                    em.persist(mdt);                        
+                }
+                else if (line.startsWith(MDT_COSM_TAG) && kniha.getIsbn() != null){
+                    mdtCosmString = dataLoader.nacitajMdtCosm(line);
+                    if (mdtCosmString.indexOf('+') >= 0){       //ak obsahuje znak plus tak sa tam nachadza viac mdt a treba rozdelovat
+                        String[] mdtList = mdtCosmString.split("\\+");
+                        for (int i=0 ; i<mdtList.length ; i++)  {
                             Mdt mdt = new Mdt();
-                            mdt.setMdt(mdtCosmString);                        
+                            mdt.setMdt(mdtList[i]);                        
                             List<Mdt> MdtList = kniha.getMdtList();
                             kniha.setMdtList(MdtList);
                             mdt.setKnihaPomocna(kniha);                         
-                            em.persist(mdt);
+                            em.persist(mdt); 
                         }
-                        
                     }
-                    else if (line.startsWith(KLUCOVE_SLOVA_TAG) && kniha.getKlucoveSlova() == null) {
-                        klucoveSlova = dataLoader.nacitajKlucoveSlova(line);
-                        kniha.setKlucoveSlova(klucoveSlova);
+                    else {
+                        Mdt mdt = new Mdt();
+                        mdt.setMdt(mdtCosmString);                        
+                        List<Mdt> MdtList = kniha.getMdtList();
+                        kniha.setMdtList(MdtList);
+                        mdt.setKnihaPomocna(kniha);                         
+                        em.persist(mdt);
                     }
-                    else if (line.startsWith(KLUCOVE_SLOVA_INE_TAG) && kniha.getKlucoveSlova() == null) {
-                        klucoveSlova = dataLoader.nacitajKlucoveSlovaIne(line);
-                        kniha.setKlucoveSlova(klucoveSlova);
+
+                }
+                else if (line.startsWith(KLUCOVE_SLOVA_TAG) && kniha.getKlucoveSlova() == null) {
+                    klucoveSlova = dataLoader.nacitajKlucoveSlova(line);
+                    kniha.setKlucoveSlova(klucoveSlova);
+                }
+                else if (line.startsWith(KLUCOVE_SLOVA_INE_TAG) && kniha.getKlucoveSlova() == null) {
+                    klucoveSlova = dataLoader.nacitajKlucoveSlovaIne(line);
+                    kniha.setKlucoveSlova(klucoveSlova);
+                }
+                else if (line.startsWith(END_BOOK)) {
+                    if (kniha.getIsbn() != null){   //do DB sa ulozi iba ak ma ISBN teda je to kniha
+                        em.getTransaction()
+                            .begin();
+                        em.persist(kniha);
+                        em.getTransaction()
+                            .commit();
+                        System.out.println("Autor: " + kniha.getAutor() + "***" + 
+                                           "ISBN: " + kniha.getIsbn()  + "***" +                                           
+                                           "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");                            
                     }
-                    else if (line.startsWith(END_BOOK)) {
-                        if (kniha.getIsbn() != null){   //do DB sa ulozi iba ak ma ISBN teda je to kniha
-                            em.getTransaction()
-                                .begin();
-                            em.persist(kniha);
-                            em.getTransaction()
-                                .commit();
-                            System.out.println("Autor: " + kniha.getAutor() + "***" + 
-                                               "ISBN: " + kniha.getIsbn()  + "***" +                                           
-                                               "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");                            
-                        }
-                        kniha = new KnihaPomocna();
-                    }
-                   
-              //  }
+                    kniha = new KnihaPomocna();
+                }
             }
             
             em.close();
