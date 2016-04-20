@@ -29,7 +29,7 @@ public class NacitaniePouzivatelov {
                 if (count % 3 == 0){
                     segmentLine = line.split(" ");
                     Pouzivatel pouzivatel = new Pouzivatel();
-                    pouzivatel.setKatalogoveId(Integer.parseInt(segmentLine[3]));
+                    pouzivatel.setKatalogoveId(segmentLine[3]);
                     
                     em.getTransaction()
                         .begin();
