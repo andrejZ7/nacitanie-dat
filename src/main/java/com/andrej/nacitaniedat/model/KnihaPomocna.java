@@ -27,6 +27,7 @@ public class KnihaPomocna implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
+    private String katalogoveId;
     private String isbn;
     private String autor;
     private String vydavatelstvo;
@@ -146,6 +147,20 @@ public class KnihaPomocna implements Serializable {
      */
     public void setPouzivatel(List<Kniha> pouzivatel) {
         this.pouzivatel = pouzivatel;
+    }
+
+    /**
+     * @return the katalogoveId
+     */
+    public String getKatalogoveId() {
+        return katalogoveId;
+    }
+
+    /**
+     * @param katalogoveId the katalogoveId to set
+     */
+    public void setKatalogoveId(String katalogoveId) {
+        this.katalogoveId = katalogoveId;
     }
     
 }

@@ -89,4 +89,9 @@ public class DataLoader {
         return lineArray[1];
     }
     
+    public String nacitajKatId(String line) {
+        String[] lineArray = line.split(" c");
+        return lineArray[1];
+    }
+    
 }

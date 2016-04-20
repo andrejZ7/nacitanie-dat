@@ -25,6 +25,7 @@ public class NacitanieKnih {
     private final static String MDT_COSM_TAG = "962    a";
     private final static String KLUCOVE_SLOVA_TAG = "964    ";
     private final static String KLUCOVE_SLOVA_INE_TAG = "653 0  ";
+    private final static String KATALOGOVE_ID_TAG = "# @id";    
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
         
@@ -38,6 +39,7 @@ public class NacitanieKnih {
             String mdtCosmString;
             String datum;
             String klucoveSlova;
+            String katalogoveId;
             DataLoader dataLoader = new DataLoader();
             KnihaPomocna kniha = new KnihaPomocna();
            
@@ -45,7 +47,11 @@ public class NacitanieKnih {
                       
             while ((line = br.readLine()) != null) {
                // while (line.equals(END_BOOK)) {
-                    if (line.startsWith(ISBN_TAG)) {                        
+                    if (line.startsWith(KATALOGOVE_ID_TAG)) {
+                        katalogoveId = dataLoader.nacitajKatId(line);
+                        kniha.setKatalogoveId(katalogoveId);
+                    }
+                    else if (line.startsWith(ISBN_TAG)) {                        
                         isbn = dataLoader.nacitajIsbn(line);
                         if (!"".equals(isbn)) {                            
                             kniha.setIsbn(isbn);                            
