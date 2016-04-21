@@ -107,17 +107,32 @@ public class DataLoader {
         String[] idArray = lineArray[1].split("bkl_us_cat_h");
         String idPouzivatela = idArray[0];
         
+        if ("0038336".equals(idPouzivatela)) {
+            String AS = "asd";
+        }
+        
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
              
         query.where((critBld.equal(root.get("katalogoveId"), idPouzivatela)));
-        Query qu = em.createQuery(query);
-        return (Pouzivatel) qu.getSingleResult();     
+        Query qu = em.createQuery(query);        
+        try{
+            Pouzivatel pouzivatel = (Pouzivatel) qu.getSingleResult();
+            return pouzivatel;
+        }
+        catch(javax.persistence.NoResultException e){			
+            return null;			
+        }
     }
     
     public Kniha nacitajKnihuZTransakcie(String line) {
+        
+        if (line.startsWith("100    akl_is_user*0035501")) {
+            int asd = 4;
+        }
+        
         String[] lineArray = line.split("bkl_us_cat_h\\*");
         String[] idArray = lineArray[1].split("_");
         String idKniha = idArray[0];
@@ -128,8 +143,14 @@ public class DataLoader {
         Root<Kniha> root = query.from(Kniha.class);
         
         query.where((critBld.equal(root.get("katalogoveId"), idKniha)));
-        Query qu = em.createQuery(query);
-        return (Kniha) qu.getSingleResult();     
+        Query qu = em.createQuery(query);                      
+        try{
+            Kniha kniha = (Kniha) qu.getSingleResult();
+            return kniha;
+        }
+        catch(javax.persistence.NoResultException e){			
+            return null;			
+        }
         
     }
         
