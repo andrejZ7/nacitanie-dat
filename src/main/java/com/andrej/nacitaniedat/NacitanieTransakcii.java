@@ -40,25 +40,34 @@ public class NacitanieTransakcii {
                 if (line.startsWith(USER_ID_TAG)){
                     pouzivatel = dataLoader.nacitajPouzivatelaZTransakcie(line);
                     transakcia.setPouzivatel(pouzivatel);
-                    List<Transakcia> trListPouzivatel = pouzivatel.getTransakciaList();
-                    trListPouzivatel.add(transakcia);
-                    pouzivatel.setTransakciaList(trListPouzivatel);
-                    
+                    if (pouzivatel != null){
+                        List<Transakcia> trListPouzivatel = pouzivatel.getTransakciaList();
+                        trListPouzivatel.add(transakcia);
+                        pouzivatel.setTransakciaList(trListPouzivatel);
+                    }
                     kniha = dataLoader.nacitajKnihuZTransakcie(line);
                     transakcia.setKniha(kniha);
-                    List<Transakcia> trListKniha = kniha.getTransakciaList();
-                    trListKniha.add(transakcia);
-                    kniha.setTransakciaList(trListKniha);
-                    
+                    if (kniha != null){
+                         List<Transakcia> trListKniha = kniha.getTransakciaList();
+                        trListKniha.add(transakcia);
+                        kniha.setTransakciaList(trListKniha);
+                    }
                 }
                 else if (line.startsWith(END_TR_TAG)) {                
                     em.getTransaction()
                         .begin();
                     em.persist(transakcia);
-                    em.persist(pouzivatel);
-                    em.persist(kniha);
+                    if (pouzivatel != null) {
+                        em.merge(pouzivatel);
+                        em.flush();
+                    }
+                    if (kniha != null) {
+                        em.merge(kniha);
+                        em.flush();
+                    }                   
                     em.getTransaction()
-                        .commit(); 
+                        .commit();
+                    System.out.println("Cislo tr: " + transakcia.getPouzivatel().getKatalogoveId());
                     transakcia = new Transakcia();
                     pouzivatel = new Pouzivatel();
                     kniha = new Kniha();
