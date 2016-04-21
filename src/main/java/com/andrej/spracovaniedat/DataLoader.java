@@ -1,7 +1,15 @@
 package com.andrej.spracovaniedat;
 
+import com.andrej.nacitaniedat.PersistenceManager;
+import com.andrej.nacitaniedat.model.Kniha;
+import com.andrej.nacitaniedat.model.Pouzivatel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -93,5 +101,39 @@ public class DataLoader {
         String[] lineArray = line.split(" c");
         return lineArray[1];
     }
+    
+    public Pouzivatel nacitajPouzivatelaZTransakcie(String line) {
+        String[] lineArray = line.split("akl_is_user\\*");
+        String[] idArray = lineArray[1].split("bkl_us_cat_h");
+        String idPouzivatela = idArray[0];
+        
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
+        Root<Pouzivatel> root = query.from(Pouzivatel.class);
+             
+        query.where((critBld.equal(root.get("katalogoveId"), idPouzivatela)));
+        Query qu = em.createQuery(query);
+        return (Pouzivatel) qu.getSingleResult();     
+    }
+    
+    public Kniha nacitajKnihuZTransakcie(String line) {
+        String[] lineArray = line.split("bkl_us_cat_h\\*");
+        String[] idArray = lineArray[1].split("_");
+        String idKniha = idArray[0];
+        
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Kniha> query = critBld.createQuery(Kniha.class);  
+        Root<Kniha> root = query.from(Kniha.class);
+        
+        query.where((critBld.equal(root.get("katalogoveId"), idKniha)));
+        Query qu = em.createQuery(query);
+        return (Kniha) qu.getSingleResult();     
+        
+    }
+        
+        
+    
     
 }

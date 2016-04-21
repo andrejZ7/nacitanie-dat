@@ -7,23 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pouzivatel")
-public class Pouzivatel implements Serializable {
-  
-@ManyToMany(mappedBy = "pouzivatel", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-private List<Kniha> kniha;
+public class Pouzivatel implements Serializable { 
 
-@ManyToMany(mappedBy = "pouzivatel", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-private List<KnihaPomocna> knihaPomocna;
     
 @Id
 @GeneratedValue
 private Integer id;
 private String katalogoveId;
+
+@OneToMany(mappedBy="pouzivatel", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+private List<Transakcia> transakciaList;
 
     /**
      * @return the id
@@ -54,33 +52,17 @@ private String katalogoveId;
     }
 
     /**
-     * @return the kniha
+     * @return the transakciaList
      */
-    public List<Kniha> getKniha() {
-        return kniha;
+    public List<Transakcia> getTransakciaList() {
+        return transakciaList;
     }
 
     /**
-     * @param kniha the kniha to set
+     * @param transakciaList the transakciaList to set
      */
-    public void setKniha(List<Kniha> kniha) {
-        this.kniha = kniha;
+    public void setTransakciaList(List<Transakcia> transakciaList) {
+        this.transakciaList = transakciaList;
     }
-
-    /**
-     * @return the knihaPomocna
-     */
-    public List<KnihaPomocna> getKnihaPomocna() {
-        return knihaPomocna;
-    }
-
-    /**
-     * @param knihaPomocna the knihaPomocna to set
-     */
-    public void setKnihaPomocna(List<KnihaPomocna> knihaPomocna) {
-        this.knihaPomocna = knihaPomocna;
-    }
-          
-  
- 
+    
 }

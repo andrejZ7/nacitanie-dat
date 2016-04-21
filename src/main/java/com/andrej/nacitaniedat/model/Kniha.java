@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,6 +23,9 @@ public class Kniha implements Serializable {
     @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Mdt> MdtList;
     
+    @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Transakcia> transakciaList;  
+    
     @Id
     @GeneratedValue
     private Integer id;
@@ -33,10 +35,7 @@ public class Kniha implements Serializable {
     private String vydavatelstvo;
     private String datum;
     private String klucoveSlova;
-    
-    @ManyToMany
-    private List<Kniha> pouzivatel;
-
+     
     /**
      * @return the isbn
      */
@@ -134,21 +133,7 @@ public class Kniha implements Serializable {
     public void setKlucoveSlova(String klucoveSlova) {
         this.klucoveSlova = klucoveSlova;
     }
-
-    /**
-     * @return the pouzivatel
-     */
-    public List<Kniha> getPouzivatel() {
-        return pouzivatel;
-    }
-
-    /**
-     * @param pouzivatel the pouzivatel to set
-     */
-    public void setPouzivatel(List<Kniha> pouzivatel) {
-        this.pouzivatel = pouzivatel;
-    }
-
+    
     /**
      * @return the katalogoveId
      */
@@ -161,6 +146,20 @@ public class Kniha implements Serializable {
      */
     public void setKatalogoveId(String katalogoveId) {
         this.katalogoveId = katalogoveId;
+    }
+
+    /**
+     * @return the transakciaList
+     */
+    public List<Transakcia> getTransakciaList() {
+        return transakciaList;
+    }
+
+    /**
+     * @param transakciaList the transakciaList to set
+     */
+    public void setTransakciaList(List<Transakcia> transakciaList) {
+        this.transakciaList = transakciaList;
     }
     
 }
