@@ -16,8 +16,8 @@ import javax.persistence.Table;
  * @author andrej
  */
 
-@Entity
-@Table(name = "knihaPomocna")
+//@Entity
+//@Table(name = "knihaPomocna")
 public class KnihaPomocna implements Serializable {
     
     @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)

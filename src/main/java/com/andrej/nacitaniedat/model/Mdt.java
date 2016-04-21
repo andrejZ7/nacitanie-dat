@@ -19,8 +19,8 @@ public class Mdt implements Serializable {
     
     @ManyToOne
     private Kniha kniha;
-    @ManyToOne//////////////////////////////////////////
-    private KnihaPomocna knihaPomocna;/////////////////////////////////
+    /*@ManyToOne//////////////////////////////////////////
+    private KnihaPomocna knihaPomocna;////////////////////////////////*/
     
     @Id
     @GeneratedValue
@@ -68,19 +68,6 @@ public class Mdt implements Serializable {
     public void setKniha(Kniha kniha) {
         this.kniha = kniha;
     }
-
-    /**
-     * @return the knihaPomocna
-     */
-    public KnihaPomocna getKnihaPomocna() {
-        return knihaPomocna;
-    }
-
-    /**
-     * @param knihaPomocna the knihaPomocna to set
-     */
-    public void setKnihaPomocna(KnihaPomocna knihaPomocna) {
-        this.knihaPomocna = knihaPomocna;
-    }
+   
     
 }

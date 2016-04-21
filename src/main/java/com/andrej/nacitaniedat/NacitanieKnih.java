@@ -41,11 +41,11 @@ public class NacitanieKnih {
             String klucoveSlova;
             String katalogoveId;
             DataLoader dataLoader = new DataLoader();
-            KnihaPomocna kniha = new KnihaPomocna();
+            Kniha kniha = new Kniha();
            
             EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
                       
-            while ((line = br.readLine()) != null) {              
+            while ((line = br.readLine()) != null) {           
                 if (line.startsWith(KATALOGOVE_ID_TAG)) {
                     katalogoveId = dataLoader.nacitajKatId(line);
                     kniha.setKatalogoveId(katalogoveId);
@@ -76,7 +76,7 @@ public class NacitanieKnih {
                     mdt.setMdt(mdtString);                        
                     List<Mdt> MdtList = kniha.getMdtList();
                     kniha.setMdtList(MdtList);
-                    mdt.setKnihaPomocna(kniha);                         
+                    mdt.setKniha(kniha);                         
                     em.persist(mdt);                        
                 }
                 else if (line.startsWith(MDT_COSM_TAG) && kniha.getIsbn() != null){
@@ -88,7 +88,7 @@ public class NacitanieKnih {
                             mdt.setMdt(mdtList[i]);                        
                             List<Mdt> MdtList = kniha.getMdtList();
                             kniha.setMdtList(MdtList);
-                            mdt.setKnihaPomocna(kniha);                         
+                            mdt.setKniha(kniha);                         
                             em.persist(mdt); 
                         }
                     }
@@ -97,7 +97,7 @@ public class NacitanieKnih {
                         mdt.setMdt(mdtCosmString);                        
                         List<Mdt> MdtList = kniha.getMdtList();
                         kniha.setMdtList(MdtList);
-                        mdt.setKnihaPomocna(kniha);                         
+                        mdt.setKniha(kniha);                         
                         em.persist(mdt);
                     }
 
@@ -121,7 +121,7 @@ public class NacitanieKnih {
                                            "ISBN: " + kniha.getIsbn()  + "***" +                                           
                                            "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");                            
                     }
-                    kniha = new KnihaPomocna();
+                    kniha = new Kniha();
                 }
             }
             
