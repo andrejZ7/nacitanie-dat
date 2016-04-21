@@ -18,7 +18,7 @@ import org.marc4j.MarcReader;
 public class NacitaniePouzivatelov {
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("usersFile.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\ARL_data\\ex_kl\\KlIsUserEx.txt"))) {
             String line;
             int count = 0;
             String[] segmentLine;            
