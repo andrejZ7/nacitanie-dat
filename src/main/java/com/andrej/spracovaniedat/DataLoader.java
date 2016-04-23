@@ -102,6 +102,11 @@ public class DataLoader {
         return lineArray[1];
     }
     
+    public String nacitajKatIdBezZnaku(String line) {        
+        String[] lineArray = line.split("KlUsCat ");
+        return lineArray[1];
+    }
+    
     public Pouzivatel nacitajPouzivatelaZTransakcie(String line) {
         String[] lineArray = line.split("akl_is_user\\*");
         String[] idArray = lineArray[1].split("bkl_us_cat_h");
@@ -151,7 +156,7 @@ public class DataLoader {
         catch(javax.persistence.NoResultException e){			
             return null;			
         }
-        
+               
     }
         
         
