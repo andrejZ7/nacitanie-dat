@@ -26,10 +26,12 @@ public class NacitanieKnih {
     private final static String KLUCOVE_SLOVA_TAG = "964    ";
     private final static String KLUCOVE_SLOVA_INE_TAG = "653 0  ";
     private final static String KATALOGOVE_ID_TAG = "# @id KlUsCat c";    ///////////////////////////////////////////zatial len pre jeden katalog
+    private final static String KATALOGOVE_ID_BEZ_ZNAKU_TAG = "# @id KlUsCat ";
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
         
-        try (BufferedReader br = new BufferedReader(new FileReader("KlUsCat_example.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\ARL_data\\ex_kl\\KlUsCat.txt"))) {
+        //try (BufferedReader br = new BufferedReader(new FileReader("KlUsCat_example.txt"))) {
             String line;
             int count = 0;
             String isbn;
@@ -48,6 +50,10 @@ public class NacitanieKnih {
             while ((line = br.readLine()) != null) {           
                 if (line.startsWith(KATALOGOVE_ID_TAG)) {
                     katalogoveId = dataLoader.nacitajKatId(line);
+                    kniha.setKatalogoveId(katalogoveId);
+                }
+                else if (line.startsWith(KATALOGOVE_ID_BEZ_ZNAKU_TAG) && !line.startsWith(KATALOGOVE_ID_TAG)) {
+                    katalogoveId = dataLoader.nacitajKatIdBezZnaku(line);
                     kniha.setKatalogoveId(katalogoveId);
                 }
                 else if (line.startsWith(ISBN_TAG)) {                        
@@ -117,9 +123,9 @@ public class NacitanieKnih {
                         em.persist(kniha);
                         em.getTransaction()
                             .commit();
-                        System.out.println("Autor: " + kniha.getAutor() + "***" + 
+                        /*System.out.println("Autor: " + kniha.getAutor() + "***" + 
                                            "ISBN: " + kniha.getIsbn()  + "***" +                                           
-                                           "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");                            
+                                           "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");  */                          
                     }
                     kniha = new Kniha();
                 }
