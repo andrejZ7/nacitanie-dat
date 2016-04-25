@@ -134,13 +134,21 @@ public class DataLoader {
     
     public Kniha nacitajKnihuZTransakcie(String line) {
         
-        if (line.startsWith("100    akl_is_user*0035501")) {
-            int asd = 4;
+        if (line.startsWith("100    akl_is_user*0035501")) {////////////////
+            int asd = 4;//////////////////
+        }  /////////////////////
+        String idKniha = "";
+        String[] lineArray = line.split("\\*");
+        String[] lineArrayWithC = line.split("\\*c");
+        if (lineArrayWithC.length >= 2){
+            String[] idArray = lineArrayWithC[1].split("_");
+            idKniha = idArray[0];
+        }
+        else {
+            String[] idArray = lineArray[2].split("_");
+            idKniha = idArray[0];
         }
         
-        String[] lineArray = line.split("bkl_us_cat_h\\*");
-        String[] idArray = lineArray[1].split("_");
-        String idKniha = idArray[0];
         
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
@@ -148,8 +156,11 @@ public class DataLoader {
         Root<Kniha> root = query.from(Kniha.class);
         
         query.where((critBld.equal(root.get("katalogoveId"), idKniha)));
-        Query qu = em.createQuery(query);                      
+        Query qu = em.createQuery(query);
+        //qu = em.createNativeQuery("SELECT kniha.id, kniha.autor, kniha.datum, kniha.isbn, kniha.katalogoveId, kniha.klucoveSlova, kniha.vydavatelstvo FROM kniha WHERE katalogoveId = ?");
+       // qu.setParameter(1, idKniha);
         try{
+           // Kniha kniha = (Kniha) em.createNativeQuery("SELECT * FROM kniha WHERE katalogoveId = idKniha").getSingleResult();
             Kniha kniha = (Kniha) qu.getSingleResult();
             return kniha;
         }
