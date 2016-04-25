@@ -26,7 +26,8 @@ public class NacitanieTransakcii {
     private final static String USER_ID_TAG = "100    a";
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("KlTrxVN_example.txt"))) {
+        //try (BufferedReader br = new BufferedReader(new FileReader("KlTrxVN_example.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\ARL_data\\ex_kl\\KlTrxVN.txt"))) {
             String line;
             int count = 0;
             String[] segmentLine;
@@ -67,7 +68,7 @@ public class NacitanieTransakcii {
                     }                   
                     em.getTransaction()
                         .commit();
-                    System.out.println("Cislo tr: " + transakcia.getPouzivatel().getKatalogoveId());
+                    System.out.println("Pouzivatel: " + transakcia.getPouzivatel().getKatalogoveId());
                     transakcia = new Transakcia();
                     pouzivatel = new Pouzivatel();
                     kniha = new Kniha();
