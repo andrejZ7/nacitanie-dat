@@ -22,10 +22,7 @@ public class Kniha implements Serializable {
     
     @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Mdt> MdtList;
-    
-    @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    private List<Transakcia> transakciaList;  
-    
+        
     @Id
     @GeneratedValue
     private Integer id;
@@ -148,18 +145,4 @@ public class Kniha implements Serializable {
         this.katalogoveId = katalogoveId;
     }
 
-    /**
-     * @return the transakciaList
-     */
-    public List<Transakcia> getTransakciaList() {
-        return transakciaList;
-    }
-
-    /**
-     * @param transakciaList the transakciaList to set
-     */
-    public void setTransakciaList(List<Transakcia> transakciaList) {
-        this.transakciaList = transakciaList;
-    }
-    
 }

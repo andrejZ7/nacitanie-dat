@@ -22,10 +22,7 @@ public class KnihaPomocna implements Serializable {
     
     @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Mdt> MdtList;
-    
-    @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    private List<Transakcia> transakciaList;
-    
+  
     @Id
     @GeneratedValue
     private Integer id;

@@ -20,9 +20,6 @@ public class Pouzivatel implements Serializable {
 private Integer id;
 private String katalogoveId;
 
-@OneToMany(mappedBy="pouzivatel", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-private List<Transakcia> transakciaList;
-
     /**
      * @return the id
      */
@@ -50,19 +47,6 @@ private List<Transakcia> transakciaList;
     public void setKatalogoveId(String katalogoveId) {
         this.katalogoveId = katalogoveId;
     }
-
-    /**
-     * @return the transakciaList
-     */
-    public List<Transakcia> getTransakciaList() {
-        return transakciaList;
-    }
-
-    /**
-     * @param transakciaList the transakciaList to set
-     */
-    public void setTransakciaList(List<Transakcia> transakciaList) {
-        this.transakciaList = transakciaList;
-    }
+ 
     
 }

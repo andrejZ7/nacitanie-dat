@@ -8,7 +8,6 @@ package com.andrej.spracovanienacitanychdat;
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.nacitaniedat.model.Transakcia;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
