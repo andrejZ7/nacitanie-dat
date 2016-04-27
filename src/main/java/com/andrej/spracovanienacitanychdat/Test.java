@@ -41,7 +41,7 @@ public class Test {
         catch(javax.persistence.NoResultException e){			
             System.out.println("Chyba pri query Transakcie!!!!!!!!!!!!");			
         }
-        int s = 78;
+        
         
         em.close();
         PersistenceManager.INSTANCE.close();
