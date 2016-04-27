@@ -26,7 +26,7 @@ public class NacitanieTransakcii {
     private final static String USER_ID_TAG = "100    a";
     
     public static void main(String [] args) throws FileNotFoundException, IOException {
-        //try (BufferedReader br = new BufferedReader(new FileReader("KlTrxVN_example.txt"))) {
+       // try (BufferedReader br = new BufferedReader(new FileReader("KlTrxVN_example.txt"))) {
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\ARL_data\\ex_kl\\KlTrxVN.txt"))) {
             String line;
             int count = 0;
@@ -39,14 +39,14 @@ public class NacitanieTransakcii {
 
             while ((line = br.readLine()) != null) {
                 if (line.startsWith(USER_ID_TAG)){
-                    pouzivatel = dataLoader.nacitajPouzivatelaZTransakcie(line);
+                    pouzivatel = dataLoader.nacitajPouzivatelaZTransakcie(line, em);
                     transakcia.setPouzivatel(pouzivatel);
                     if (pouzivatel != null){
                         List<Transakcia> trListPouzivatel = pouzivatel.getTransakciaList();
                         trListPouzivatel.add(transakcia);
                         pouzivatel.setTransakciaList(trListPouzivatel);
                     }
-                    kniha = dataLoader.nacitajKnihuZTransakcie(line);
+                    kniha = dataLoader.nacitajKnihuZTransakcie(line, em);
                     transakcia.setKniha(kniha);
                     if (kniha != null){
                          List<Transakcia> trListKniha = kniha.getTransakciaList();
@@ -68,7 +68,7 @@ public class NacitanieTransakcii {
                     }                   
                     em.getTransaction()
                         .commit();
-                    System.out.println("Pouzivatel: " + transakcia.getPouzivatel().getKatalogoveId());
+                    //System.out.println("Pouzivatel: " + transakcia.getPouzivatel().getKatalogoveId());
                     transakcia = new Transakcia();
                     pouzivatel = new Pouzivatel();
                     kniha = new Kniha();

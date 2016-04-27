@@ -107,16 +107,12 @@ public class DataLoader {
         return lineArray[1];
     }
     
-    public Pouzivatel nacitajPouzivatelaZTransakcie(String line) {
+    public Pouzivatel nacitajPouzivatelaZTransakcie(String line, EntityManager em) {
         String[] lineArray = line.split("akl_is_user\\*");
         String[] idArray = lineArray[1].split("bkl_us_cat_h");
         String idPouzivatela = idArray[0];
-        
-        if ("0038336".equals(idPouzivatela)) {
-            String AS = "asd";
-        }
-        
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+                
+        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
@@ -132,11 +128,7 @@ public class DataLoader {
         }
     }
     
-    public Kniha nacitajKnihuZTransakcie(String line) {
-        
-        if (line.startsWith("100    akl_is_user*0035501")) {////////////////
-            int asd = 4;//////////////////
-        }  /////////////////////
+    public Kniha nacitajKnihuZTransakcie(String line, EntityManager em) {             
         String idKniha = "";
         String[] lineArray = line.split("\\*");
         String[] lineArrayWithC = line.split("\\*c");
@@ -150,7 +142,7 @@ public class DataLoader {
         }
         
         
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Kniha> query = critBld.createQuery(Kniha.class);  
         Root<Kniha> root = query.from(Kniha.class);
