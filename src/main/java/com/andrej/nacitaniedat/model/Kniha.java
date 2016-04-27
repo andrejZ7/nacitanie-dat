@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,6 +23,9 @@ public class Kniha implements Serializable {
     
     @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Mdt> MdtList;
+    
+    @ManyToOne
+    private Pouzivatel pouzivatel;
         
     @Id
     @GeneratedValue
@@ -143,6 +147,20 @@ public class Kniha implements Serializable {
      */
     public void setKatalogoveId(String katalogoveId) {
         this.katalogoveId = katalogoveId;
+    }
+
+    /**
+     * @return the pouzivatel
+     */
+    public Pouzivatel getPouzivatel() {
+        return pouzivatel;
+    }
+
+    /**
+     * @param pouzivatel the pouzivatel to set
+     */
+    public void setPouzivatel(Pouzivatel pouzivatel) {
+        this.pouzivatel = pouzivatel;
     }
 
 }

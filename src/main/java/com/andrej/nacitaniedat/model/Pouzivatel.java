@@ -14,6 +14,8 @@ import javax.persistence.Table;
 @Table(name = "pouzivatel")
 public class Pouzivatel implements Serializable { 
 
+@OneToMany(mappedBy="pouzivatel", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+private List<Kniha> KnihyList;    
     
 @Id
 @GeneratedValue
@@ -46,6 +48,20 @@ private String katalogoveId;
      */
     public void setKatalogoveId(String katalogoveId) {
         this.katalogoveId = katalogoveId;
+    }
+
+    /**
+     * @return the KnihyList
+     */
+    public List<Kniha> getKnihyList() {
+        return KnihyList;
+    }
+
+    /**
+     * @param KnihyList the KnihyList to set
+     */
+    public void setKnihyList(List<Kniha> KnihyList) {
+        this.KnihyList = KnihyList;
     }
  
     
