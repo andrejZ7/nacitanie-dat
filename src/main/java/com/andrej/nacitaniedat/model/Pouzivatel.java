@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -14,8 +15,10 @@ import javax.persistence.Table;
 @Table(name = "pouzivatel")
 public class Pouzivatel implements Serializable { 
 
-@OneToMany(mappedBy="pouzivatel", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-private List<Kniha> KnihyList;    
+@ManyToMany(mappedBy = "pouzivateliaList")
+private List<Kniha> knihyList;  
+
+
     
 @Id
 @GeneratedValue
@@ -54,14 +57,14 @@ private String katalogoveId;
      * @return the KnihyList
      */
     public List<Kniha> getKnihyList() {
-        return KnihyList;
+        return knihyList;
     }
 
     /**
-     * @param KnihyList the KnihyList to set
+     * @param knihyList the knihyList to set
      */
-    public void setKnihyList(List<Kniha> KnihyList) {
-        this.KnihyList = KnihyList;
+    public void setKnihyList(List<Kniha> knihyList) {
+        this.knihyList = knihyList;
     }
  
     

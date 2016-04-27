@@ -3,7 +3,6 @@ package com.andrej.nacitaniedat;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.KnihaPomocna;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.nacitaniedat.model.Transakcia;
 import com.andrej.spracovaniedat.DataLoader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -29,47 +28,31 @@ public class NacitanieTransakcii {
        // try (BufferedReader br = new BufferedReader(new FileReader("KlTrxVN_example.txt"))) {
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\ARL_data\\ex_kl\\KlTrxVN.txt"))) {
             String line;
-            int count = 0;
-            String[] segmentLine;
             DataLoader dataLoader = new DataLoader();
             Pouzivatel pouzivatel = new Pouzivatel();
-            Kniha kniha = new Kniha();
-            Transakcia transakcia = new Transakcia();
+            Kniha kniha = new Kniha();            
             EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
 
             while ((line = br.readLine()) != null) {
                 if (line.startsWith(USER_ID_TAG)){
-                    pouzivatel = dataLoader.nacitajPouzivatelaZTransakcie(line, em);
-                    transakcia.setPouzivatel(pouzivatel);
-                    if (pouzivatel != null){
-                        List<Transakcia> trListPouzivatel = pouzivatel.getTransakciaList();
-                        trListPouzivatel.add(transakcia);
-                        pouzivatel.setTransakciaList(trListPouzivatel);
-                    }
-                    kniha = dataLoader.nacitajKnihuZTransakcie(line, em);
-                    transakcia.setKniha(kniha);
+                    pouzivatel = dataLoader.nacitajPouzivatelaZTransakcie(line, em);                    
+                    kniha = dataLoader.nacitajKnihuZTransakcie(line, em);                    
                     if (kniha != null){
-                         List<Transakcia> trListKniha = kniha.getTransakciaList();
-                        trListKniha.add(transakcia);
-                        kniha.setTransakciaList(trListKniha);
+                        pouzivatel.getKnihyList().add(kniha);
+                        kniha.getPouzivateliaList().add(pouzivatel);
                     }
                 }
                 else if (line.startsWith(END_TR_TAG)) {                
                     em.getTransaction()
-                        .begin();
-                    em.persist(transakcia);
-                    if (pouzivatel != null) {
+                      .begin();                    
+                    if (pouzivatel != null && kniha != null) {
                         em.merge(pouzivatel);
-                        em.flush();
-                    }
-                    if (kniha != null) {
                         em.merge(kniha);
                         em.flush();
-                    }                   
+                    }                                     
                     em.getTransaction()
-                        .commit();
-                    //System.out.println("Pouzivatel: " + transakcia.getPouzivatel().getKatalogoveId());
-                    transakcia = new Transakcia();
+                      .commit();
+                    //System.out.println("Pouzivatel: " + transakcia.getPouzivatel().getKatalogoveId());                    
                     pouzivatel = new Pouzivatel();
                     kniha = new Kniha();
                 }
@@ -77,53 +60,6 @@ public class NacitanieTransakcii {
             em.close();
             PersistenceManager.INSTANCE.close();
         }
-        /*String idPouzivatela = "0000038";
-        String isbnKniha = "80-202-0067-3";
-        
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        CriteriaBuilder critBld = em.getCriteriaBuilder();		
-        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
-        Root<Pouzivatel> root = query.from(Pouzivatel.class);
-        CriteriaQuery<KnihaPomocna> queryKniha = critBld.createQuery(KnihaPomocna.class);  
-        Root<KnihaPomocna> rootKniha = queryKniha.from(KnihaPomocna.class);
-        
-        queryKniha.where((critBld.equal(rootKniha.get("isbn"), isbnKniha)));        
-        query.where((critBld.equal(root.get("katalogoveId"), idPouzivatela)));
-        Query qu = em.createQuery(query);
-        Query quKniha = em.createQuery(queryKniha);
-        Pouzivatel pouzivatel = (Pouzivatel) qu.getSingleResult();
-        System.out.println(pouzivatel.getKatalogoveId());
-        
-       
-        KnihaPomocna knihaPomocna = (KnihaPomocna)  quKniha.getSingleResult();
-        
-        System.out.println(knihaPomocna.getIsbn());
-        
-        List<KnihaPomocna> knihaPomocnaList = pouzivatel.getKnihaPomocna();
-        knihaPomocnaList.add(knihaPomocna);
-        pouzivatel.setKnihaPomocna(knihaPomocnaList);
-        List<Pouzivatel> pouzivatelList = knihaPomocna.getPouzivatel();
-        knihaPomocna.setPouzivatel(pouzivatelList);
-       
-        
-        em.getTransaction()
-            .begin();
-        em.persist(pouzivatel);        
-        em.persist(knihaPomocna);
-        em.getTransaction()
-            .commit();
-
-        
-        
-        qu = em.createQuery(query);
-        Pouzivatel pouzivatelNovy = (Pouzivatel) qu.getSingleResult();
-        quKniha = em.createQuery(queryKniha);
-        KnihaPomocna knihaPomocna2 = (KnihaPomocna) quKniha.getSingleResult();
-        System.out.println(pouzivatelNovy.getKnihaPomocna().get(0).getIsbn());
-        System.out.println(knihaPomocna2.getPouzivatel().get(0).getKatalogoveId());
-        
-        em.close();
-        PersistenceManager.INSTANCE.close();*/
     }
     
 }
