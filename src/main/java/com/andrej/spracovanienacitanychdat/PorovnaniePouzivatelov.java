@@ -25,7 +25,7 @@ public class PorovnaniePouzivatelov {
         for(int i=0 ; i<vsetciPouzivatelia ; i++){
             System.out.println(pocitadlo + ". *****************************************************************");
             pocitadlo++;
-            for(int j=0 ; i<vsetciPouzivatelia ; j++){                
+            for(int j=0 ; j<vsetciPouzivatelia ; j++){                
                 userA = pouzivateliaList.get(i);
                 userB = pouzivateliaList.get(j);
                 if(i != j){
