@@ -29,7 +29,7 @@ public class PorovnaniePouzivatelov {
                 userA = pouzivateliaList.get(i);
                 userB = pouzivateliaList.get(j);
                 if(i != j){
-                    userService.porovnajPouzivatelov(userA, userB);
+                    userService.porovnajPouzivatelov(userA, userB, j);
                 }
             }
         }

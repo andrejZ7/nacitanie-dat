@@ -10,13 +10,13 @@ import java.util.Objects;
  * @author andrej
  */
 public class UserServices {
-    public void porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB){
+    public void porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB, int poradie){
         int pocetKnihA = userA.getKnihyList().size();
         int pocetKnihB = userB.getKnihyList().size();
         List<Kniha> knihyA =  userA.getKnihyList();
         List<Kniha> knihyB =  userB.getKnihyList();
-        int zjednotenie = pocetKnihA + pocetKnihB;
-        int prienik = 0;
+        double zjednotenie = pocetKnihA + pocetKnihB;
+        double prienik = 0;
         int pocitadlo = 0;        
         
         for(int i=0 ; i<pocetKnihA ; i++){            
@@ -24,10 +24,11 @@ public class UserServices {
                 pocitadlo++;
                 if (Objects.equals(knihyA.get(i).getId(), knihyB.get(j).getId())){
                     prienik++;
+                    System.out.println("ZHODA ###############################################################");
                 }
             }
         }
         double podobnost = prienik / (zjednotenie - prienik);
-        System.out.println(pocitadlo + ". Podobnost " +userA.getId()+ "/" +userB.getId() + " = " + podobnost);
+        System.out.println(pocitadlo + " porovnani, " + poradie+ ". Podobnost " + "Prienik: " +prienik+ "     " +userA.getId()+ "/" +userB.getId() + " = " + podobnost);
     }
 }
