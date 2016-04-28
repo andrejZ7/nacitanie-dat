@@ -3,6 +3,7 @@ package com.andrej.spracovaniedat;
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
@@ -162,6 +163,21 @@ public class DataLoader {
                
     }
         
+    public List<Pouzivatel> nacitajVsetkychPouzivatelov() {
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
+        Root<Pouzivatel> root = query.from(Pouzivatel.class);
+        
+        query.select(root);   
+	Query qu = em.createQuery(query);
+	try{
+            return (List<Pouzivatel>) qu.getResultList();    
+        }
+        catch(javax.persistence.NoResultException e){			
+            return null;			
+        }   
+    }
         
     
     
