@@ -8,8 +8,6 @@ package com.andrej.spracovanienacitanychdat;
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -25,17 +23,25 @@ public class Test {
     
      public static void main(String [] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        Integer id = 0011333;
-        
-        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+      
+       /* CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
         Pouzivatel pouzivatel;
              
-        query.where((critBld.equal(root.get("id"), 2545419)));
-        Query qu = em.createQuery(query);        
-        try{
-            pouzivatel = (Pouzivatel) qu.getSingleResult();           
+        query.where((critBld.equal(root.get("id"), 2556812)));
+        Query qu = em.createQuery(query);        */
+        
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
+        Root<Pouzivatel> root = query.from(Pouzivatel.class);
+        
+        query.select(root);
+        List<Pouzivatel> pouzivateliaList;
+   
+	Query qu = em.createQuery(query);
+	try{
+            pouzivateliaList = (List<Pouzivatel>) qu.getResultList();    
         }
         catch(javax.persistence.NoResultException e){			
             System.out.println("Chyba pri query Transakcie!!!!!!!!!!!!");			
