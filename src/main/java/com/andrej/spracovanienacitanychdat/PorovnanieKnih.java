@@ -6,8 +6,8 @@ import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.spracovaniedat.BookServices;
 import com.andrej.spracovaniedat.DataLoader;
 import com.andrej.spracovaniedat.UserServices;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -21,10 +21,8 @@ public class PorovnanieKnih {
         UserServices userService = new UserServices();
         BookServices bookService = new BookServices();
         List<Pouzivatel> pouzivateliaList = dataLoader.nacitajVsetkychPouzivatelov();
-        Pouzivatel userA = pouzivateliaList.get(0);
-        Pouzivatel userB = userA.getNajblizsiPouzivatel();
-        Kniha knihaA = userA.getKnihyList().get(0);
-        Kniha knihaB = userB.getKnihyList().get(0);
+        Pouzivatel userA;
+        Pouzivatel userB;  
         double podobnostKnih;
         List<Matrix> listMatic;
         double v1[][] = { {0,0,0,0} };
@@ -45,13 +43,17 @@ public class PorovnanieKnih {
             System.out.println("Pouzivatel: " + userA.getId() + " **********************************");
             for (int k=0 ; k<pocetSpKnih ; k++) {
                 for (int l=0 ; l<pocetKnihA ; l++){
-                    listMatic = bookService.vytvorenieVektorov(spolocneKnihy.get(k), userA.getKnihyList().get(l));
-                    sourceDoc = listMatic.get(0);
-                    targetDoc = listMatic.get(1);
-                    podobnostKnih = bookService.vypocitajKosinusVzdialenost(sourceDoc, targetDoc);
-                    System.out.println("Podobnost knihy " + spolocneKnihy.get(k).getId() + 
-                                       " a knihy " + userA.getKnihyList().get(l).getId() +
+                    //porovnanie ci su knihy rozne
+                    if ( !Objects.equals(spolocneKnihy.get(k).getId(), userA.getKnihyList().get(l).getId()) ) {
+                        listMatic = bookService.vytvorenieVektorov(spolocneKnihy.get(k), userA.getKnihyList().get(l));
+                        sourceDoc = listMatic.get(0);
+                        targetDoc = listMatic.get(1);
+                        podobnostKnih = bookService.vypocitajKosinusVzdialenost(sourceDoc, targetDoc);
+                        System.out.println("Podobnost knihy cislo " + k + ". " + spolocneKnihy.get(k).getId() + 
+                                       " a knihy cislo " + l + ". " + userA.getKnihyList().get(l).getId() +
                                        " je *** " + podobnostKnih);
+                    }
+                    
                 }               
             }
         }
