@@ -23,6 +23,12 @@ public class BookServices {
     public double vypocitajKosinusVzdialenost(Matrix sourceDoc, Matrix targetDoc) {    
         double skalarnySucin = vypocitajSkalarnySucin(sourceDoc, targetDoc);
         double euklidovskaVzdialenost = sourceDoc.normF() * targetDoc.normF();
-        return skalarnySucin / euklidovskaVzdialenost;
+        if (euklidovskaVzdialenost == 0.0) {
+            return 0.0;
+        }
+        else {
+            return skalarnySucin / euklidovskaVzdialenost;
+        }
+        
     }
 }
