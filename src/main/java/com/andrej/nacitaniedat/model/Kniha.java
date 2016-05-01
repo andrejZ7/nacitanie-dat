@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "kniha")
 public class Kniha implements Serializable {
     
-    @OneToMany(mappedBy="kniha", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="kniha", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Mdt> MdtList;
     
     @ManyToMany

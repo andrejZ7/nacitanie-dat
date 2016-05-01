@@ -22,7 +22,7 @@ private List<Kniha> knihyList;
 @ManyToOne
 private Pouzivatel najblizsiPouzivatel;
 
-@OneToMany(mappedBy="najblizsiPouzivatel")
+@OneToMany(mappedBy="najblizsiPouzivatel", fetch = FetchType.LAZY)
 private List<Pouzivatel> podobniPouzivatelia;
 
     
