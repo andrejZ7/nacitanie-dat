@@ -1,19 +1,13 @@
 package com.andrej.nacitaniedat;
 
 import com.andrej.nacitaniedat.model.Kniha;
-import com.andrej.nacitaniedat.model.KnihaPomocna;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.spracovaniedat.DataLoader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
