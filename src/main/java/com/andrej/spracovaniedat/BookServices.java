@@ -6,12 +6,29 @@ import com.andrej.nacitaniedat.model.Pouzivatel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author andrej
  */
 public class BookServices {
+    
+    private String upravDatumNaCislo(String datum) {
+        if (StringUtils.isNumeric(datum)) {
+            return datum;
+        }
+        else {
+            String pattern = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)";
+            String[] dateArray = datum.split(pattern);
+            for (int i=0 ; i<dateArray.length ; i++) {
+                if ( StringUtils.isNumeric(dateArray[i]) ) {
+                    return dateArray[i];
+                }
+            }
+        }
+        return datum;
+    }
     
     private double vypocitajSkalarnySucin(Matrix m1, Matrix m2) {
         int vectorLength = m1.getColumnDimension();
@@ -57,6 +74,17 @@ public class BookServices {
         double v1[][] = { {0,0,0,0} };
         double v2[][] = { {0,0,0,0} };
         List<Matrix> listMatic = new ArrayList<Matrix>();
+        String upravenyDatum;
+       
+        if (knihaA.getDatum() != null) {
+            upravenyDatum = upravDatumNaCislo(knihaA.getDatum());            
+            knihaA.setDatum(upravenyDatum);
+        }        
+        
+        if (knihaB.getDatum() != null) {
+            upravenyDatum = upravDatumNaCislo(knihaB.getDatum());            
+            knihaB.setDatum(upravenyDatum);
+        }
         
         if (knihaA.getAutor() != null && knihaB.getAutor() != null){
             if (knihaA.getAutor().equals(knihaB.getAutor())) {
