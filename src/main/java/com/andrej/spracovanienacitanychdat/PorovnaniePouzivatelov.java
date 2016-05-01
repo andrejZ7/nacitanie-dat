@@ -1,11 +1,14 @@
 package com.andrej.spracovanienacitanychdat;
 
+import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.spracovaniedat.DataLoader;
+import com.andrej.spracovaniedat.PodobnyPouzivatel;
 import com.andrej.spracovaniedat.UserServices;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -18,23 +21,52 @@ public class PorovnaniePouzivatelov {
         UserServices userService = new UserServices();
         List<Pouzivatel> pouzivateliaList = dataLoader.nacitajVsetkychPouzivatelov();
         int pocitadlo = 0;
-        Pouzivatel userA;
-        Pouzivatel userB;
+        Pouzivatel userA = null;
+        Pouzivatel userB = null;
         int vsetciPouzivatelia = pouzivateliaList.size();
+        PodobnyPouzivatel podobnost = new PodobnyPouzivatel();
+        double maxPodobnost = 0;
+        double aktualnaPodobnost;
+        Integer maxPodobnyPouzivatelId = 0;
+        Pouzivatel podobniPouzivatel = new Pouzivatel();
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        
         
         for(int i=0 ; i<vsetciPouzivatelia ; i++){
             System.out.println(pocitadlo + ". *****************************************************************");
             pocitadlo++;
-            for(int j=0 ; j<vsetciPouzivatelia ; j++){                
-                userA = pouzivateliaList.get(i);
+            maxPodobnost = 0;
+            userA = pouzivateliaList.get(i);
+            for(int j=0 ; j<vsetciPouzivatelia ; j++){ 
                 userB = pouzivateliaList.get(j);
                 if(i != j){
-                    userService.porovnajPouzivatelov(userA, userB, j);
+                    podobnost = userService.porovnajPouzivatelov(userA, userB, j);                    
+                }
+                aktualnaPodobnost = podobnost.getPodobnost();
+                if (aktualnaPodobnost > maxPodobnost) {
+                    maxPodobnost = aktualnaPodobnost;
+                    maxPodobnyPouzivatelId = podobnost.getPouzivatel().getId();
+                    podobniPouzivatel = podobnost.getPouzivatel();
                 }
             }
+            System.out.println("Najpodobnejsi pouzivatel k pouzivatelovi " + userA.getId() + 
+                               " je " + maxPodobnyPouzivatelId + " *** Podobnost: " +maxPodobnost +
+                               "/////////////////////////// " + podobniPouzivatel.getId());
+            
+            userA.setNajblizsiPouzivatel(podobniPouzivatel);
+            podobniPouzivatel.getPodobniPouzivatelia().add(userA);
+            
+            em.getTransaction()
+              .begin();
+            em.merge(userA);
+            em.merge(podobniPouzivatel);
+            em.flush();                                                        
+            em.getTransaction()
+              .commit();            
         }
         
-        
+        em.close();
+        PersistenceManager.INSTANCE.close();
        
     }
 }

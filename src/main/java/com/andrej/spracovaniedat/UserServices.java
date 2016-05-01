@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author andrej
  */
 public class UserServices {
-    public void porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB, int poradie){
+    public PodobnyPouzivatel porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB, int poradie){
         int pocetKnihA = userA.getKnihyList().size();
         int pocetKnihB = userB.getKnihyList().size();
         List<Kniha> knihyA =  userA.getKnihyList();
@@ -28,7 +28,12 @@ public class UserServices {
                 }
             }
         }
-        double podobnost = prienik / (zjednotenie - prienik);
-        System.out.println(pocitadlo + " porovnani, " + poradie+ ". Podobnost " + "Prienik: " +prienik+ "     " +userA.getId()+ "/" +userB.getId() + " = " + podobnost);
+        double jaccardovaPodobnost = prienik / (zjednotenie - prienik);
+        System.out.println(pocitadlo + " porovnani, " + poradie+ ". Podobnost " + "Prienik: " +prienik+ "     " +userA.getId()+ "/" +userB.getId() + " = " + jaccardovaPodobnost);
+        
+        PodobnyPouzivatel podobnost = new PodobnyPouzivatel();
+        podobnost.setPouzivatel(userB);
+        podobnost.setPodobnost(jaccardovaPodobnost);
+        return podobnost;
     }
 }

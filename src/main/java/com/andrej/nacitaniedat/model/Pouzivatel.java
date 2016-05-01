@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +19,11 @@ public class Pouzivatel implements Serializable {
 @ManyToMany(mappedBy = "pouzivateliaList")
 private List<Kniha> knihyList;  
 
+@ManyToOne
+private Pouzivatel najblizsiPouzivatel;
+
+@OneToMany(mappedBy="najblizsiPouzivatel")
+private List<Pouzivatel> podobniPouzivatelia;
 
     
 @Id
@@ -65,6 +71,34 @@ private String katalogoveId;
      */
     public void setKnihyList(List<Kniha> knihyList) {
         this.knihyList = knihyList;
+    }
+
+    /**
+     * @return the najblizsiPouzivatel
+     */
+    public Pouzivatel getNajblizsiPouzivatel() {
+        return najblizsiPouzivatel;
+    }
+
+    /**
+     * @param najblizsiPouzivatel the najblizsiPouzivatel to set
+     */
+    public void setNajblizsiPouzivatel(Pouzivatel najblizsiPouzivatel) {
+        this.najblizsiPouzivatel = najblizsiPouzivatel;
+    }
+
+    /**
+     * @return the podobniPouzivatelia
+     */
+    public List<Pouzivatel> getPodobniPouzivatelia() {
+        return podobniPouzivatelia;
+    }
+
+    /**
+     * @param podobniPouzivatelia the podobniPouzivatelia to set
+     */
+    public void setPodobniPouzivatelia(List<Pouzivatel> podobniPouzivatelia) {
+        this.podobniPouzivatelia = podobniPouzivatelia;
     }
  
     
