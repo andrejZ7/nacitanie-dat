@@ -32,7 +32,7 @@ public class Test {
         query.where((critBld.equal(root.get("id"), 2556812)));
         Query qu = em.createQuery(query);        */
         
-        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+       /* CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
         
@@ -49,7 +49,19 @@ public class Test {
         
         
         em.close();
-        PersistenceManager.INSTANCE.close();
+        PersistenceManager.INSTANCE.close();*/
+               
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
+        Root<Pouzivatel> root = query.from(Pouzivatel.class);
+        Pouzivatel pouzivatel;
+
+        query.where((critBld.equal(root.get("id"), "2546887")));
+        Query qu = em.createQuery(query);        
+
+        pouzivatel = (Pouzivatel) qu.getSingleResult();
+        
+        int sda = 78;
         
      }
     
