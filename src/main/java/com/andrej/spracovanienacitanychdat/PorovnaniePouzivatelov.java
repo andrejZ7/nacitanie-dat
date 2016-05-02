@@ -17,9 +17,11 @@ import javax.persistence.EntityManager;
 public class PorovnaniePouzivatelov {
     
     public static void main(String [] args) {
+        
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         DataLoader dataLoader = new DataLoader();
         UserServices userService = new UserServices();
-        List<Pouzivatel> pouzivateliaList = dataLoader.nacitajVsetkychPouzivatelov();
+        List<Pouzivatel> pouzivateliaList = dataLoader.nacitajVsetkychPouzivatelov(em);
         int pocitadlo = 0;
         Pouzivatel userA = null;
         Pouzivatel userB = null;
@@ -29,8 +31,6 @@ public class PorovnaniePouzivatelov {
         double aktualnaPodobnost;
         Integer maxPodobnyPouzivatelId = 0;
         Pouzivatel podobniPouzivatel = new Pouzivatel();
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        
         
         for(int i=0 ; i<vsetciPouzivatelia ; i++){
             System.out.println(pocitadlo + ". *****************************************************************");
