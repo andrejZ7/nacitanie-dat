@@ -3,7 +3,7 @@ package com.andrej.spracovanienacitanychdat;
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.spracovaniedat.DataLoader;
+import com.andrej.spracovaniedat.DataLoaderServices;
 import com.andrej.spracovaniedat.PodobnyPouzivatel;
 import com.andrej.spracovaniedat.UserServices;
 import java.util.List;
@@ -19,7 +19,7 @@ public class PorovnaniePouzivatelov {
     public static void main(String [] args) {
         
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        DataLoader dataLoader = new DataLoader();
+        DataLoaderServices dataLoader = new DataLoaderServices();
         UserServices userService = new UserServices();
         List<Pouzivatel> pouzivateliaList = userService.nacitajVsetkychPouzivatelov(em);
         int pocitadlo = 0;

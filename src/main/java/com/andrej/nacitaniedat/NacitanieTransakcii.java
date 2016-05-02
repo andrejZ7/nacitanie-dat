@@ -2,7 +2,7 @@ package com.andrej.nacitaniedat;
 
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.spracovaniedat.DataLoader;
+import com.andrej.spracovaniedat.DataLoaderServices;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,7 +22,7 @@ public class NacitanieTransakcii {
        // try (BufferedReader br = new BufferedReader(new FileReader("KlTrxVN_example.txt"))) {
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\ARL_data\\ex_kl\\KlTrxVN.txt"))) {
             String line;
-            DataLoader dataLoader = new DataLoader();
+            DataLoaderServices dataLoader = new DataLoaderServices();
             Pouzivatel pouzivatel = new Pouzivatel();
             Kniha kniha = new Kniha();            
             EntityManager em = PersistenceManager.INSTANCE.getEntityManager();

@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
  *
  * @author andrej
  */
-public class DataLoader {
+public class DataLoaderServices {
     
     public String nacitajIsbn(String line) {       
         String[] lineArray = line.split("a");   //ISBN je vzdy v lineArray[1]

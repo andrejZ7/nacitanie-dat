@@ -6,7 +6,7 @@ import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.spracovaniedat.BookServices;
 import com.andrej.spracovaniedat.CustomComparator;
-import com.andrej.spracovaniedat.DataLoader;
+import com.andrej.spracovaniedat.DataLoaderServices;
 import com.andrej.spracovaniedat.PodobneKnihy;
 import com.andrej.spracovaniedat.UserServices;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class PorovnanieKnih {
        
     public static void main(String [] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();               
-        DataLoader dataLoader = new DataLoader();
+        DataLoaderServices dataLoader = new DataLoaderServices();
         UserServices userService = new UserServices();
         BookServices bookService = new BookServices();
         List<Pouzivatel> pouzivateliaList = userService.nacitajVsetkychPouzivatelov(em);

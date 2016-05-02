@@ -3,7 +3,7 @@ package com.andrej.nacitaniedat;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.KnihaPomocna;
 import com.andrej.nacitaniedat.model.Mdt;
-import com.andrej.spracovaniedat.DataLoader;
+import com.andrej.spracovaniedat.DataLoaderServices;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -42,7 +42,7 @@ public class NacitanieKnih {
             String datum;
             String klucoveSlova;
             String katalogoveId;
-            DataLoader dataLoader = new DataLoader();
+            DataLoaderServices dataLoader = new DataLoaderServices();
             Kniha kniha = new Kniha();
            
             EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
