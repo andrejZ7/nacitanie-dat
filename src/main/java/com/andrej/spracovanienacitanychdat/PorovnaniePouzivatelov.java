@@ -49,9 +49,9 @@ public class PorovnaniePouzivatelov {
                     podobniPouzivatel = podobnost.getPouzivatel();
                 }
             }
-            System.out.println("Najpodobnejsi pouzivatel k pouzivatelovi " + userA.getId() + 
+            /*System.out.println("Najpodobnejsi pouzivatel k pouzivatelovi " + userA.getId() + 
                                " je " + maxPodobnyPouzivatelId + " *** Podobnost: " +maxPodobnost +
-                               "/////////////////////////// " + podobniPouzivatel.getId());
+                               "/////////////////////////// " + podobniPouzivatel.getId());*/
             
             userA.setNajblizsiPouzivatel(podobniPouzivatel);
             podobniPouzivatel.getPodobniPouzivatelia().add(userA);

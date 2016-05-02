@@ -7,6 +7,7 @@ package com.andrej.spracovanienacitanychdat;
 
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
+import com.andrej.nacitaniedat.model.Pouzivatel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -38,8 +39,7 @@ public class Test {
     }
     
      public static void main(String [] args) {
-        
-      
+             
        /* CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
@@ -79,7 +79,7 @@ public class Test {
         
         int sda = 78;
         */
-        
+      /*  
         List<Kniha> vsetkyKnihy;
         
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
@@ -103,9 +103,29 @@ public class Test {
             }
         
         }
+     */
+       
+        
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
+        Root<Pouzivatel> root = query.from(Pouzivatel.class);
+        
+        query.select(root);
+        List<Pouzivatel> pouzivateliaList;
+   
+	Query qu = em.createQuery(query);
+	try{
+            pouzivateliaList = (List<Pouzivatel>) qu.getResultList();    
+        }
+        catch(javax.persistence.NoResultException e){			
+            System.out.println("Chyba pri query Transakcie!!!!!!!!!!!!");			
+        }
      
-     
-     
+        
+        em.close();
+        PersistenceManager.INSTANCE.close();
+        
      }
     
 }

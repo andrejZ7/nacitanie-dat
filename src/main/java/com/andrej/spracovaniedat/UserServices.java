@@ -29,12 +29,12 @@ public class UserServices {
                 pocitadlo++;
                 if (Objects.equals(knihyA.get(i).getId(), knihyB.get(j).getId())){
                     prienik++;
-                    System.out.println("ZHODA ###############################################################");
+                   // System.out.println("ZHODA ###############################################################");
                 }
             }
         }
         double jaccardovaPodobnost = prienik / (zjednotenie - prienik);
-        System.out.println(pocitadlo + " porovnani, " + poradie+ ". Podobnost " + "Prienik: " +prienik+ "     " +userA.getId()+ "/" +userB.getId() + " = " + jaccardovaPodobnost);
+       // System.out.println(pocitadlo + " porovnani, " + poradie+ ". Podobnost " + "Prienik: " +prienik+ "     " +userA.getId()+ "/" +userB.getId() + " = " + jaccardovaPodobnost);
         
         PodobnyPouzivatel podobnost = new PodobnyPouzivatel();
         podobnost.setPouzivatel(userB);

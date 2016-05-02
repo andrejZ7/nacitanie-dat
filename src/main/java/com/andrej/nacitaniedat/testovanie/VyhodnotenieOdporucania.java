@@ -28,7 +28,7 @@ public class VyhodnotenieOdporucania {
         for (int i=0 ; i<pouzivateliaList.size() ; i++) {
             userA = pouzivateliaList.get(i);           
             if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy()) ) {            
-                System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+                //System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
                 zhoda++;               
             }
             

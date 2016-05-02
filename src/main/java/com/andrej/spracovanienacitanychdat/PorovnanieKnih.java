@@ -59,7 +59,7 @@ public class PorovnanieKnih {
             pocetSpKnih = spolocneKnihy.size();
             pocetKnihA = userA.getKnihyList().size();
             pocetKnihB = userB.getKnihyList().size();
-            System.out.println("Pouzivatel: " + userA.getId() + " //////////////////////////////////////////////////////////////////////////////////////////////");
+            System.out.println("Pouzivatel c." + i + " id: " + userA.getId() + " //////////////////////////////////////////////////////////////////////////////////////////////");
             for (int k=0 ; k<pocetKnihA ; k++) {
                 for (int l=0 ; l<pocetKnihB ; l++){
                     if (!bookService.jeSpolocna(spolocneKnihy, userA.getKnihyList().get(k))) {
@@ -82,17 +82,17 @@ public class PorovnanieKnih {
                 }                
             }            
             Collections.sort(dvojiceKnihList, new CustomComparator());
-            System.out.print("Spolocne knihy: ");
+            /*System.out.print("Spolocne knihy: ");
             for (Kniha kniha : spolocneKnihy) {
                 System.out.print(kniha.getId() + ", ");
-            }
+            }*/
             
             
-            System.out.println("\nOdporucene knihy: ");
+            /*System.out.println("\nOdporucene knihy: ");
             for (int x=0 ; x<POCET_ODPORUCENYCH_KNIH ; x++) {                
                 System.out.print(dvojiceKnihList.get(x).getKnihaUserB().getId() + ", ");
             }                              
-            System.out.println("");
+            System.out.println("");*/
             
             for (int x=0 ; x<POCET_ODPORUCENYCH_KNIH ; x++) {
                 odporuceneKnihy.add(dvojiceKnihList.get(x).getKnihaUserB());
@@ -119,13 +119,11 @@ public class PorovnanieKnih {
               .commit();
             
             if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy()) ) {
-                System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+                //System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
                 zhoda++;
             }
             
-            odporuceneKnihy = new ArrayList<Kniha>();
-            System.out.println("");
-            System.out.println("");
+            odporuceneKnihy = new ArrayList<Kniha>();           
         }
         
         uspesnost = (zhoda/pouzivateliaList.size()) * 100;
