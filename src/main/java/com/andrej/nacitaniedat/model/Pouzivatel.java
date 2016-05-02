@@ -17,7 +17,10 @@ import javax.persistence.Table;
 public class Pouzivatel implements Serializable { 
 
 @ManyToMany(mappedBy = "pouzivateliaList")
-private List<Kniha> knihyList;  
+private List<Kniha> knihyList;
+
+@ManyToMany(mappedBy = "odporuceniPouzivatelia", fetch = FetchType.LAZY)
+private List<Kniha> odporuceneKnihy;
 
 @ManyToOne
 private Pouzivatel najblizsiPouzivatel;
@@ -99,6 +102,20 @@ private String katalogoveId;
      */
     public void setPodobniPouzivatelia(List<Pouzivatel> podobniPouzivatelia) {
         this.podobniPouzivatelia = podobniPouzivatelia;
+    }
+
+    /**
+     * @return the odporuceneKnihy
+     */
+    public List<Kniha> getOdporuceneKnihy() {
+        return odporuceneKnihy;
+    }
+
+    /**
+     * @param odporuceneKnihy the odporuceneKnihy to set
+     */
+    public void setOdporuceneKnihy(List<Kniha> odporuceneKnihy) {
+        this.odporuceneKnihy = odporuceneKnihy;
     }
  
     

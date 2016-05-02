@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,8 +26,14 @@ public class Kniha implements Serializable {
     @OneToMany(mappedBy="kniha", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Mdt> MdtList;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Pouzivatel> pouzivateliaList;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="odporucenakniha_pouzivatel", 
+               joinColumns = @JoinColumn(name = "odporucenipouzivatelia_id"),
+               inverseJoinColumns = @JoinColumn(name = "odporuceneknihy_id"))
+    private List<Pouzivatel> odporuceniPouzivatelia;
         
     @Id
     @GeneratedValue
@@ -161,6 +169,20 @@ public class Kniha implements Serializable {
      */
     public void setPouzivateliaList(List<Pouzivatel> pouzivateliaList) {
         this.pouzivateliaList = pouzivateliaList;
+    }
+
+    /**
+     * @return the odporuceniPouzivatelia
+     */
+    public List<Pouzivatel> getOdporuceniPouzivatelia() {
+        return odporuceniPouzivatelia;
+    }
+
+    /**
+     * @param odporuceniPouzivatelia the odporuceniPouzivatelia to set
+     */
+    public void setOdporuceniPouzivatelia(List<Pouzivatel> odporuceniPouzivatelia) {
+        this.odporuceniPouzivatelia = odporuceniPouzivatelia;
     }
     
 }
