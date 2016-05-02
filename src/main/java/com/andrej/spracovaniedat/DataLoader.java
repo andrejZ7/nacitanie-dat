@@ -163,8 +163,8 @@ public class DataLoader {
                
     }
         
-    public List<Pouzivatel> nacitajVsetkychPouzivatelov() {
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+    public List<Pouzivatel> nacitajVsetkychPouzivatelov(EntityManager em) {
+        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
