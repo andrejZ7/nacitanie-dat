@@ -162,23 +162,5 @@ public class DataLoader {
         }
                
     }
-        
-    public List<Pouzivatel> nacitajVsetkychPouzivatelov(EntityManager em) {
-        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        CriteriaBuilder critBld = em.getCriteriaBuilder();		
-        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
-        Root<Pouzivatel> root = query.from(Pouzivatel.class);
-        
-        query.select(root);   
-	Query qu = em.createQuery(query);
-	try{
-            return (List<Pouzivatel>) qu.getResultList();    
-        }
-        catch(javax.persistence.NoResultException e){			
-            return null;			
-        }   
-    }
-        
-    
     
 }

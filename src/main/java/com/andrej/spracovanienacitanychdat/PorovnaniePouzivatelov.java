@@ -21,7 +21,7 @@ public class PorovnaniePouzivatelov {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         DataLoader dataLoader = new DataLoader();
         UserServices userService = new UserServices();
-        List<Pouzivatel> pouzivateliaList = dataLoader.nacitajVsetkychPouzivatelov(em);
+        List<Pouzivatel> pouzivateliaList = userService.nacitajVsetkychPouzivatelov(em);
         int pocitadlo = 0;
         Pouzivatel userA = null;
         Pouzivatel userB = null;

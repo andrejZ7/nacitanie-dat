@@ -27,7 +27,7 @@ public class PorovnanieKnih {
         DataLoader dataLoader = new DataLoader();
         UserServices userService = new UserServices();
         BookServices bookService = new BookServices();
-        List<Pouzivatel> pouzivateliaList = dataLoader.nacitajVsetkychPouzivatelov(em);
+        List<Pouzivatel> pouzivateliaList = userService.nacitajVsetkychPouzivatelov(em);
         Pouzivatel userA;
         Pouzivatel userB;  
         double podobnostKnih;

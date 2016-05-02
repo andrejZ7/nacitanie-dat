@@ -4,6 +4,11 @@ import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -36,4 +41,21 @@ public class UserServices {
         podobnost.setPodobnost(jaccardovaPodobnost);
         return podobnost;
     }
+    
+    public List<Pouzivatel> nacitajVsetkychPouzivatelov(EntityManager em) {
+        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+        CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
+        Root<Pouzivatel> root = query.from(Pouzivatel.class);
+        
+        query.select(root);   
+	Query qu = em.createQuery(query);
+	try{
+            return (List<Pouzivatel>) qu.getResultList();    
+        }
+        catch(javax.persistence.NoResultException e){			
+            return null;			
+        }
+    }
+    
 }
