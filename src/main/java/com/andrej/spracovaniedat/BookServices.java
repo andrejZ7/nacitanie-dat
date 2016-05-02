@@ -156,4 +156,14 @@ public class BookServices {
         return listMatic;
     }
     
+    public boolean jeSpolocna(List<Kniha> spolocneKnihy, Kniha kniha) {
+        for (int i=0 ; i<spolocneKnihy.size() ; i++) {
+            if (Objects.equals(kniha.getId(), spolocneKnihy.get(i).getId())) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
 }
