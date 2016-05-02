@@ -166,4 +166,18 @@ public class BookServices {
         return false;
     }
     
+    public boolean vyhodnotOdporuceneKnihy(List<Kniha> knihyPouzivatela, List<Kniha> odporuceneKnihy) {          
+        int pocetKnihPouzivatela = knihyPouzivatela.size();
+        int pocetKnihOdporucenych = odporuceneKnihy.size();        
+        
+        for(int i=0 ; i<pocetKnihPouzivatela ; i++) {
+            for(int j=0 ; j<pocetKnihOdporucenych ; j++) {
+                if (Objects.equals(knihyPouzivatela.get(i).getId(), odporuceneKnihy.get(j).getId())) {
+                    return true;
+                }
+            }            
+        }
+        return false;
+    }
+    
 }
