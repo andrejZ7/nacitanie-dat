@@ -28,7 +28,8 @@ public class PorovnanieKnih {
         double v1[][] = { {0,0,0,0} };
         double v2[][] = { {0,0,0,0} };
         List<Kniha> spolocneKnihy;
-        int pocetKnihA;         
+        int pocetKnihA;
+        int pocetKnihB;
         int pocetSpKnih;        
         Matrix sourceDoc;
         Matrix targetDoc;
@@ -40,20 +41,22 @@ public class PorovnanieKnih {
             spolocneKnihy = bookService.najdiSplocneKnihy(userA, userB);
             pocetSpKnih = spolocneKnihy.size();
             pocetKnihA = userA.getKnihyList().size();
-            System.out.println("Pouzivatel: " + userA.getId() + " **********************************");
-            for (int k=0 ; k<pocetSpKnih ; k++) {
-                for (int l=0 ; l<pocetKnihA ; l++){
-                    //porovnanie ci su knihy rozne
-                    if ( !Objects.equals(spolocneKnihy.get(k).getId(), userA.getKnihyList().get(l).getId()) ) {
-                        listMatic = bookService.vytvorenieVektorov(spolocneKnihy.get(k), userA.getKnihyList().get(l));
+            pocetKnihB = userB.getKnihyList().size();
+            System.out.println("Pouzivatel: " + userA.getId() + " ///////////////////////////////////////////////////////////////////");
+            for (int k=0 ; k<pocetKnihA ; k++) {
+                for (int l=0 ; l<pocetKnihB ; l++){
+                    if (!bookService.jeSpolocna(spolocneKnihy, userA.getKnihyList().get(k))) {
+                        listMatic = bookService.vytvorenieVektorov(userA.getKnihyList().get(k), 
+                                                                   userB.getKnihyList().get(l));
                         sourceDoc = listMatic.get(0);
                         targetDoc = listMatic.get(1);
                         podobnostKnih = bookService.vypocitajKosinusVzdialenost(sourceDoc, targetDoc);
-                        System.out.println("Podobnost knihy cislo " + k + ". " + spolocneKnihy.get(k).getId() + 
-                                       " a knihy cislo " + l + ". " + userA.getKnihyList().get(l).getId() +
-                                       " je *** " + podobnostKnih);
-                    }
-                    
+                        System.out.println("Podobnost knihy cislo " + k + ". " + 
+                                           userA.getKnihyList().get(k).getId() + 
+                                           " a knihy cislo " + l + ". " + 
+                                           userB.getKnihyList().get(l).getId() +
+                                           " je *** " + podobnostKnih);
+                    }                    
                 }               
             }
         }
