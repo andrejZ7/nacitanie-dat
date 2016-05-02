@@ -21,7 +21,9 @@ import javax.persistence.EntityManager;
  * @author andrej
  */
 public class PorovnanieKnih {
-       
+    
+    private static int POCET_ODPORUCENYCH_KNIH = 5;
+    
     public static void main(String [] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();               
         DataLoaderServices dataLoader = new DataLoaderServices();
@@ -45,7 +47,8 @@ public class PorovnanieKnih {
         
         
         List<Kniha> odporuceneKnihy = new ArrayList<Kniha>();
-        int uspesnost = 0;
+        double uspesnost;
+        double zhoda = 0;
                    
         
         for (int i=0 ; i<pouzivateliaList.size() ; i++) {
@@ -83,25 +86,23 @@ public class PorovnanieKnih {
             for (Kniha kniha : spolocneKnihy) {
                 System.out.print(kniha.getId() + ", ");
             }
-            System.out.println("\nOdporucene knihy: " + 
-                                      dvojiceKnihList.get(0).getKnihaUserB().getId() +
-                               ", " + dvojiceKnihList.get(1).getKnihaUserB().getId() + 
-                               ", " + dvojiceKnihList.get(2).getKnihaUserB().getId() + 
-                               ", " + dvojiceKnihList.get(3).getKnihaUserB().getId() + 
-                               ", " + dvojiceKnihList.get(4).getKnihaUserB().getId());
             
-            odporuceneKnihy.add(dvojiceKnihList.get(0).getKnihaUserB());
-            odporuceneKnihy.add(dvojiceKnihList.get(1).getKnihaUserB());
-            odporuceneKnihy.add(dvojiceKnihList.get(2).getKnihaUserB());
-            odporuceneKnihy.add(dvojiceKnihList.get(3).getKnihaUserB());
-            odporuceneKnihy.add(dvojiceKnihList.get(4).getKnihaUserB());
+            
+            System.out.println("\nOdporucene knihy: ");
+            for (int x=0 ; x<POCET_ODPORUCENYCH_KNIH ; x++) {                
+                System.out.print(dvojiceKnihList.get(x).getKnihaUserB().getId() + ", ");
+            }                              
+            System.out.println("");
+            
+            for (int x=0 ; x<POCET_ODPORUCENYCH_KNIH ; x++) {
+                odporuceneKnihy.add(dvojiceKnihList.get(x).getKnihaUserB());
+            }            
             
             userA.setOdporuceneKnihy(odporuceneKnihy);
-            dvojiceKnihList.get(0).getKnihaUserB().getOdporuceniPouzivatelia().add(userA);
-            dvojiceKnihList.get(1).getKnihaUserB().getOdporuceniPouzivatelia().add(userA);
-            dvojiceKnihList.get(2).getKnihaUserB().getOdporuceniPouzivatelia().add(userA);
-            dvojiceKnihList.get(3).getKnihaUserB().getOdporuceniPouzivatelia().add(userA);
-            dvojiceKnihList.get(4).getKnihaUserB().getOdporuceniPouzivatelia().add(userA);
+            
+            for (int x=0 ; x<POCET_ODPORUCENYCH_KNIH ; x++) {
+                dvojiceKnihList.get(x).getKnihaUserB().getOdporuceniPouzivatelia().add(userA);
+            }      
             
             em.getTransaction()
               .begin();                 
@@ -117,14 +118,19 @@ public class PorovnanieKnih {
             em.getTransaction()
               .commit();
             
-            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), odporuceneKnihy) ) {
+            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy()) ) {
                 System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
-                uspesnost++;
+                zhoda++;
             }
+            
+            odporuceneKnihy = new ArrayList<Kniha>();
             System.out.println("");
             System.out.println("");
         }
-                    
+        
+        uspesnost = (zhoda/pouzivateliaList.size()) * 100;
+        System.out.println("Pocet pouzivatelov: " + pouzivateliaList.size());
+        System.out.println("Zhoda : " + zhoda);
         System.out.println("Uspesnost: " +uspesnost);
         
         em.close();
