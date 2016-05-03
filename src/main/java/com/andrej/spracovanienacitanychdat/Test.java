@@ -8,6 +8,10 @@ package com.andrej.spracovanienacitanychdat;
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
+import com.sun.jndi.toolkit.url.Uri;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -38,7 +42,7 @@ public class Test {
         return datum;
     }
     
-     public static void main(String [] args) {
+     public static void main(String [] args) throws URISyntaxException, IOException {
              
        /* CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
@@ -116,7 +120,7 @@ public class Test {
    
 	Query qu = em.createQuery(query);
 	try{
-            pouzivateliaList = (List<Pouzivatel>) qu.getResultList();    
+            //pouzivateliaList = (List<Pouzivatel>) qu.getResultList();    
         }
         catch(javax.persistence.NoResultException e){			
             System.out.println("Chyba pri query Transakcie!!!!!!!!!!!!");			
@@ -128,6 +132,12 @@ public class Test {
         int vysledok;
         
         vysledok = (int) ((pouzivatelia/100) * dataset);
+        
+        String myUrl = "https://www.obalkyknih.cz/view?isbn=80-7011-900-4";
+        URI myURI = new URI(myUrl);
+        
+        java.awt.Desktop.getDesktop().browse(myURI);
+        java.awt.Desktop.getDesktop().browse(myURI);
      
         
         em.close();
