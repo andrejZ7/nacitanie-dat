@@ -13,6 +13,9 @@ import javax.persistence.EntityManager;
  * @author andrej
  */
 public class VyhodnotenieOdporucania {
+    
+    private static double PERCENTO_POROVNAVANYCH_KNIH = 80;
+    
     public static void main(String [] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         UserServices userService = new UserServices();
@@ -27,7 +30,7 @@ public class VyhodnotenieOdporucania {
         
         for (int i=0 ; i<pouzivateliaList.size() ; i++) {
             userA = pouzivateliaList.get(i);           
-            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy()) ) {            
+            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy(), PERCENTO_POROVNAVANYCH_KNIH) ) {            
                 //System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
                 zhoda++;               
             }

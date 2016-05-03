@@ -3,6 +3,7 @@ package com.andrej.spracovaniedat;
 import Jama.Matrix;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
+import com.andrej.spracovanienacitanychdat.PorovnanieKnih;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -166,11 +167,24 @@ public class BookServices {
         return false;
     }
     
-    public boolean vyhodnotOdporuceneKnihy(List<Kniha> knihyPouzivatela, List<Kniha> odporuceneKnihy) {          
-        int pocetKnihPouzivatela = knihyPouzivatela.size();
-        int pocetKnihOdporucenych = odporuceneKnihy.size();        
+    public static int vypocitajPocetPorovnavanychKnih(int pocetKnihPouzivatela, double percentoPorovnavanychKnih) {
+        double pocetKnih = (double) pocetKnihPouzivatela;
+        int pocetPorovnavanychKnih = (int) ((pocetKnih/100) * percentoPorovnavanychKnih);
+        return pocetPorovnavanychKnih;
+    }
+    
+    public boolean vyhodnotOdporuceneKnihy(List<Kniha> knihyPouzivatela, 
+                                           List<Kniha> odporuceneKnihy, 
+                                           double percentoPorovnavanychKnih) {          
         
-        for(int i=0 ; i<pocetKnihPouzivatela ; i++) {
+        int pocetKnihPouzivatela = knihyPouzivatela.size();        
+        int pocetKnihOdporucenych = odporuceneKnihy.size(); 
+        
+        int pocetKnihVDatasete = pocetKnihPouzivatela -
+                                 vypocitajPocetPorovnavanychKnih(knihyPouzivatela.size(), percentoPorovnavanychKnih);
+        
+        
+        for(int i=pocetKnihVDatasete ; i<pocetKnihPouzivatela ; i++) {
             for(int j=0 ; j<pocetKnihOdporucenych ; j++) {
                 if (Objects.equals(knihyPouzivatela.get(i).getId(), odporuceneKnihy.get(j).getId())) {
                     return true;

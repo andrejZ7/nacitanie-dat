@@ -15,17 +15,23 @@ import javax.persistence.criteria.Root;
  * @author andrej
  */
 public class UserServices {
-    public PodobnyPouzivatel porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB, int poradie){
+        
+    public PodobnyPouzivatel porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB, double percentoPorovnanychPouzivatelov){
         int pocetKnihA = userA.getKnihyList().size();
         int pocetKnihB = userB.getKnihyList().size();
         List<Kniha> knihyA =  userA.getKnihyList();
-        List<Kniha> knihyB =  userB.getKnihyList();
-        double zjednotenie = pocetKnihA + pocetKnihB;
+        List<Kniha> knihyB =  userB.getKnihyList();        
         double prienik = 0;
-        int pocitadlo = 0;        
+        int pocitadlo = 0;
+        BookServices bookService = new BookServices();
+        int pocetPorovnavanychKnihA = bookService.vypocitajPocetPorovnavanychKnih(pocetKnihA, percentoPorovnanychPouzivatelov);
+        int pocetPorovnavanychKnihB = bookService.vypocitajPocetPorovnavanychKnih(pocetKnihB, percentoPorovnanychPouzivatelov);
+        double zjednotenie = pocetPorovnavanychKnihA + pocetPorovnavanychKnihB;
         
-        for(int i=0 ; i<pocetKnihA ; i++){            
-            for(int j=0 ; j<pocetKnihB ; j++){
+        
+        
+        for(int i=0 ; i<pocetPorovnavanychKnihA ; i++){            
+            for(int j=0 ; j<pocetPorovnavanychKnihB ; j++){
                 pocitadlo++;
                 if (Objects.equals(knihyA.get(i).getId(), knihyB.get(j).getId())){
                     prienik++;

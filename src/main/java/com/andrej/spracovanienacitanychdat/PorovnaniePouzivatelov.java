@@ -16,6 +16,8 @@ import javax.persistence.EntityManager;
  */
 public class PorovnaniePouzivatelov {
     
+    private static double PERCENTO_POROVNAVANYCH_KNIH = 80;
+    
     public static void main(String [] args) {
         
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
@@ -40,7 +42,7 @@ public class PorovnaniePouzivatelov {
             for(int j=0 ; j<vsetciPouzivatelia ; j++){ 
                 userB = pouzivateliaList.get(j);
                 if(i != j){
-                    podobnost = userService.porovnajPouzivatelov(userA, userB, j);                    
+                    podobnost = userService.porovnajPouzivatelov(userA, userB, PERCENTO_POROVNAVANYCH_KNIH);                    
                 }
                 aktualnaPodobnost = podobnost.getPodobnost();
                 if (aktualnaPodobnost > maxPodobnost) {

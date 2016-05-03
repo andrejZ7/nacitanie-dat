@@ -23,6 +23,7 @@ import javax.persistence.EntityManager;
 public class PorovnanieKnih {
     
     private static int POCET_ODPORUCENYCH_KNIH = 5;
+    private static double PERCENTO_POROVNAVANYCH_KNIH = 80;
     
     public static void main(String [] args) {
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();               
@@ -43,6 +44,8 @@ public class PorovnanieKnih {
         Matrix sourceDoc;
         Matrix targetDoc;
         PodobneKnihy dvojicaKnih = new PodobneKnihy();
+        int pocetPorovnavanychKnihA;
+        int pocetPorovnavanychKnihB;
         
         
         
@@ -59,9 +62,11 @@ public class PorovnanieKnih {
             pocetSpKnih = spolocneKnihy.size();
             pocetKnihA = userA.getKnihyList().size();
             pocetKnihB = userB.getKnihyList().size();
+            pocetPorovnavanychKnihA = bookService.vypocitajPocetPorovnavanychKnih(pocetKnihA, PERCENTO_POROVNAVANYCH_KNIH);
+            pocetPorovnavanychKnihB = bookService.vypocitajPocetPorovnavanychKnih(pocetKnihB, PERCENTO_POROVNAVANYCH_KNIH);
             System.out.println("Pouzivatel c." + i + " id: " + userA.getId() + " //////////////////////////////////////////////////////////////////////////////////////////////");
-            for (int k=0 ; k<pocetKnihA ; k++) {
-                for (int l=0 ; l<pocetKnihB ; l++){
+            for (int k=0 ; k<pocetPorovnavanychKnihA ; k++) {
+                for (int l=0 ; l<pocetPorovnavanychKnihB ; l++){
                     if (!bookService.jeSpolocna(spolocneKnihy, userA.getKnihyList().get(k))) {
                         listMatic = bookService.vytvorenieVektorov(userA.getKnihyList().get(k), 
                                                                    userB.getKnihyList().get(l));
@@ -118,7 +123,7 @@ public class PorovnanieKnih {
             em.getTransaction()
               .commit();
             
-            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy()) ) {
+            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy(), PERCENTO_POROVNAVANYCH_KNIH) ) {
                 //System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
                 zhoda++;
             }

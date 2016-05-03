@@ -121,6 +121,13 @@ public class Test {
         catch(javax.persistence.NoResultException e){			
             System.out.println("Chyba pri query Transakcie!!!!!!!!!!!!");			
         }
+        
+        double pouzivatelia = 112;
+        double dataset = 80;
+        double test = 20;
+        int vysledok;
+        
+        vysledok = (int) ((pouzivatelia/100) * dataset);
      
         
         em.close();
