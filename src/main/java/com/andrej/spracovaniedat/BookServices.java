@@ -2,6 +2,7 @@ package com.andrej.spracovaniedat;
 
 import Jama.Matrix;
 import com.andrej.nacitaniedat.model.Kniha;
+import com.andrej.nacitaniedat.model.Mdt;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.spracovanienacitanychdat.PorovnanieKnih;
 import java.util.ArrayList;
@@ -71,9 +72,21 @@ public class BookServices {
         return spolocneKnihy;
     }
     
+    private static int porovnajMdt(List<Mdt> mdtA , List<Mdt> mdtB) {
+        int prienik = 0;
+        for (int i=0 ; i<mdtA.size() ; i++) {
+            for (int j=0 ; j<mdtB.size() ; j++) {
+                if ( mdtA.get(i).getMdt().equals(mdtB.get(j).getMdt()) ) {
+                    prienik++;
+                }
+            } 
+        }
+        return prienik;
+    }
+    
     public List<Matrix> vytvorenieVektorov(Kniha knihaA, Kniha knihaB) {
-        double v1[][] = { {0,0,0,0} };
-        double v2[][] = { {0,0,0,0} };
+        double v1[][] = { {0,0,0,0,0} };
+        double v2[][] = { {0,0,0,0,0} };
         List<Matrix> listMatic = new ArrayList<Matrix>();
         String upravenyDatum;
        
@@ -145,6 +158,30 @@ public class BookServices {
         else {
             v1[0][3] = 0;
             v2[0][3] = 0;            
+        }
+        
+        if (knihaA.getMdtList() != null && knihaB.getMdtList() != null) {        
+            int prienik = porovnajMdt(knihaA.getMdtList(), knihaB.getMdtList());
+            if (prienik == 0) {
+                v1[0][4] = 0;
+                v2[0][4] = 1;
+            }
+            else if (prienik == 1) {
+                v1[0][4] = 1;
+                v2[0][4] = 1;
+            }
+            else if (prienik == 2) {
+                v1[0][4] = 2;
+                v2[0][4] = 2;
+            }
+            else if (prienik >= 3) {
+                v1[0][4] = 3;
+                v2[0][4] = 3;
+            }
+        }
+        else {
+            v1[0][4] = 0;
+            v2[0][4] = 0;            
         }
         
         
