@@ -2,7 +2,6 @@ package com.andrej.nacitaniedat.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "pouzivatel")
 public class Pouzivatel implements Serializable { 
 
-@ManyToMany(mappedBy = "pouzivateliaList")
+@ManyToMany(mappedBy = "pouzivateliaList", fetch = FetchType.LAZY)
 private List<Kniha> knihyList;
 
 @ManyToMany(mappedBy = "odporuceniPouzivatelia", fetch = FetchType.LAZY)

@@ -1,7 +1,6 @@
 package com.andrej.nacitaniedat;
 
 import com.andrej.nacitaniedat.model.Kniha;
-import com.andrej.nacitaniedat.model.KnihaPomocna;
 import com.andrej.nacitaniedat.model.Mdt;
 import com.andrej.spracovaniedat.DataLoaderServices;
 import java.io.BufferedReader;

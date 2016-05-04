@@ -3,6 +3,7 @@ package com.andrej.nacitaniedat.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "mdt")
 public class Mdt implements Serializable {
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Kniha kniha;
     /*@ManyToOne//////////////////////////////////////////
     private KnihaPomocna knihaPomocna;////////////////////////////////*/
