@@ -38,7 +38,7 @@ public class PorovnaniePouzivatelov {
             for(int j=0 ; j<vsetciPouzivatelia ; j++){ 
                 userB = pouzivateliaList.get(j);
                 if(i != j){
-                    podobnost = userService.porovnajPouzivatelov(userA, userB, PERCENTO_POROVNAVANYCH_KNIH);                    
+                    podobnost = userService.porovnajDvochPouzivatelov(userA, userB, PERCENTO_POROVNAVANYCH_KNIH);                    
                 }
                 aktualnaPodobnost = podobnost.getPodobnost();
                 if (aktualnaPodobnost > maxPodobnost) {

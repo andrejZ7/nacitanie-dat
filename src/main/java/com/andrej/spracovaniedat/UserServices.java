@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
  */
 public class UserServices {
         
-    public PodobnyPouzivatel porovnajPouzivatelov(Pouzivatel userA, Pouzivatel userB, double percentoPorovnanychPouzivatelov){
+    public PodobnyPouzivatel porovnajDvochPouzivatelov(Pouzivatel userA, Pouzivatel userB, double percentoPorovnanychPouzivatelov){
         int pocetKnihA = userA.getKnihyList().size();
         int pocetKnihB = userB.getKnihyList().size();
         List<Kniha> knihyA =  userA.getKnihyList();
