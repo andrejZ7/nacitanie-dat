@@ -8,7 +8,6 @@ package com.andrej.spracovanienacitanychdat;
 import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.sun.jndi.toolkit.url.Uri;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -73,7 +72,7 @@ public class Test {
         em.close();
         PersistenceManager.INSTANCE.close();*/
                
-        CriteriaBuilder critBld = em.getCriteriaBuilder();		
+       /* CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
         Pouzivatel pouzivatel;
@@ -84,7 +83,7 @@ public class Test {
         pouzivatel = (Pouzivatel) qu.getSingleResult();
         
         int sda = 78;
-        
+        */
       /*  
         List<Kniha> vsetkyKnihy;
         
@@ -111,7 +110,7 @@ public class Test {
         }
      */
        
-      /*  
+      
         
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
@@ -135,7 +134,9 @@ public class Test {
         
         vysledok = (int) ((pouzivatelia/100) * dataset);
         
-        String myUrl = "https://www.obalkyknih.cz/view?isbn=80-7011-900-4";
+        String myUrl = "https://www.obalkyknih.cz/view?isbn=0-86442-324-1";
+        
+        
         URI myURI = new URI(myUrl);
         
         java.awt.Desktop.getDesktop().browse(myURI);
@@ -144,7 +145,7 @@ public class Test {
         
         em.close();
         PersistenceManager.INSTANCE.close();
-        */
+        
      }
     
 }

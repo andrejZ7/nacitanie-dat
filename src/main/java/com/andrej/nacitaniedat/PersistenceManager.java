@@ -1,4 +1,3 @@
-
 package com.andrej.nacitaniedat;
 
 import javax.persistence.EntityManager;

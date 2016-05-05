@@ -1,9 +1,7 @@
 package com.andrej.spracovaniedat;
 
-import com.andrej.nacitaniedat.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
