@@ -217,8 +217,7 @@ public class BookServices {
         int pocetKnihPouzivatela = knihyPouzivatela.size();        
         int pocetKnihOdporucenych = odporuceneKnihy.size(); 
         
-        int pocetKnihVDatasete = pocetKnihPouzivatela -
-                                 vypocitajPocetPorovnavanychKnih(knihyPouzivatela.size(), percentoPorovnavanychKnih);
+        int pocetKnihVDatasete = pocetKnihPouzivatela - vypocitajPocetPorovnavanychKnih(knihyPouzivatela.size(), percentoPorovnavanychKnih);
         
         
         for(int i=pocetKnihVDatasete ; i<pocetKnihPouzivatela ; i++) {

@@ -133,7 +133,7 @@ public class PorovnanieKnih {
         uspesnost = (zhoda/pouzivateliaList.size()) * 100;
         System.out.println("Pocet pouzivatelov: " + pouzivateliaList.size());
         System.out.println("Zhoda : " + zhoda);
-        System.out.println("Uspesnost: " +uspesnost);
+        System.out.println("Uspesnost: " +uspesnost + "%");
         
         em.close();
         PersistenceManager.INSTANCE.close();
