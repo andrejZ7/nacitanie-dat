@@ -1,4 +1,4 @@
-package com.andrej.spracovaniedat;
+package com.andrej.sluzby;
 
 import Jama.Matrix;
 import com.andrej.nacitaniedat.model.Kniha;

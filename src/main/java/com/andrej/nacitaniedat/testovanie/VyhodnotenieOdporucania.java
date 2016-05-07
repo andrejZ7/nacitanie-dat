@@ -2,8 +2,8 @@ package com.andrej.nacitaniedat.testovanie;
 
 import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.spracovaniedat.BookServices;
-import com.andrej.spracovaniedat.UserServices;
+import com.andrej.sluzby.BookServices;
+import com.andrej.sluzby.UserServices;
 import java.util.List;
 import javax.persistence.EntityManager;
 

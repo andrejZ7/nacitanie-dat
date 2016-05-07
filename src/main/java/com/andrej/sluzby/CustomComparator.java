@@ -1,4 +1,4 @@
-package com.andrej.spracovaniedat;
+package com.andrej.sluzby;
 
 import java.util.Comparator;
 

@@ -1,9 +1,9 @@
-package com.andrej.spracovanienacitanychdat;
+package com.andrej.spracovaniedat;
 
 import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.spracovaniedat.PodobnyPouzivatel;
-import com.andrej.spracovaniedat.UserServices;
+import com.andrej.sluzby.PodobnyPouzivatel;
+import com.andrej.sluzby.UserServices;
 import java.util.List;
 import javax.persistence.EntityManager;
 

@@ -3,7 +3,7 @@ package com.andrej.nacitaniedat;
 import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Mdt;
-import com.andrej.spracovaniedat.DataLoaderServices;
+import com.andrej.sluzby.DataLoaderServices;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

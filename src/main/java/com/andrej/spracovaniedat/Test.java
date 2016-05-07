@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.andrej.spracovanienacitanychdat;
+package com.andrej.spracovaniedat;
 
 import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;

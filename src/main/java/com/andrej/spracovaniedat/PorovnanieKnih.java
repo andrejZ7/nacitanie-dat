@@ -1,14 +1,14 @@
-package com.andrej.spracovanienacitanychdat;
+package com.andrej.spracovaniedat;
 
 import Jama.Matrix;
 import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.spracovaniedat.BookServices;
-import com.andrej.spracovaniedat.CustomComparator;
-import com.andrej.spracovaniedat.DataLoaderServices;
-import com.andrej.spracovaniedat.PodobneKnihy;
-import com.andrej.spracovaniedat.UserServices;
+import com.andrej.sluzby.BookServices;
+import com.andrej.sluzby.CustomComparator;
+import com.andrej.sluzby.DataLoaderServices;
+import com.andrej.sluzby.PodobneKnihy;
+import com.andrej.sluzby.UserServices;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
