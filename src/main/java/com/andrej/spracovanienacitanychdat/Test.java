@@ -5,7 +5,7 @@
  */
 package com.andrej.spracovanienacitanychdat;
 
-import com.andrej.nacitaniedat.PersistenceManager;
+import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import java.io.IOException;

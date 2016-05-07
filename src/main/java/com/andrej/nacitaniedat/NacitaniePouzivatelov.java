@@ -1,5 +1,6 @@
 package com.andrej.nacitaniedat;
 
+import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

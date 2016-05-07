@@ -1,4 +1,4 @@
-package com.andrej.nacitaniedat;
+package com.andrej.databaza;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,6 +1,6 @@
 package com.andrej.spracovanienacitanychdat;
 
-import com.andrej.nacitaniedat.PersistenceManager;
+import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.spracovaniedat.PodobnyPouzivatel;
 import com.andrej.spracovaniedat.UserServices;
