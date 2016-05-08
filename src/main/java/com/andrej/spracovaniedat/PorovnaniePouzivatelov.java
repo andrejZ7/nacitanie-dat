@@ -2,6 +2,7 @@ package com.andrej.spracovaniedat;
 
 import com.andrej.databaza.PersistenceManager;
 import com.andrej.nacitaniedat.model.Pouzivatel;
+import com.andrej.sluzby.PocetKnih;
 import com.andrej.sluzby.PodobnyPouzivatel;
 import com.andrej.sluzby.UserServices;
 import java.util.List;
@@ -12,9 +13,7 @@ import javax.persistence.EntityManager;
  * @author andrej
  */
 public class PorovnaniePouzivatelov {
-    
-    private static double PERCENTO_POROVNAVANYCH_KNIH = 80;
-    
+        
     public static void main(String [] args) {
         
         EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
@@ -23,6 +22,7 @@ public class PorovnaniePouzivatelov {
         int pocitadlo = 0;
         Pouzivatel userA = null;
         Pouzivatel userB = null;
+        PocetKnih pocetKnih = new PocetKnih();
         int vsetciPouzivatelia = pouzivateliaList.size();
         PodobnyPouzivatel podobnost = new PodobnyPouzivatel();
         double maxPodobnost = 0;
@@ -38,7 +38,7 @@ public class PorovnaniePouzivatelov {
             for(int j=0 ; j<vsetciPouzivatelia ; j++){ 
                 userB = pouzivateliaList.get(j);
                 if(i != j){
-                    podobnost = userService.porovnajDvochPouzivatelov(userA, userB, PERCENTO_POROVNAVANYCH_KNIH);                    
+                    podobnost = userService.porovnajDvochPouzivatelov(userA, userB, pocetKnih.getPercentoPorovnavanychKnih());                    
                 }
                 aktualnaPodobnost = podobnost.getPodobnost();
                 if (aktualnaPodobnost > maxPodobnost) {
