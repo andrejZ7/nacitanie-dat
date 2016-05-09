@@ -122,10 +122,7 @@ public class NacitanieKnih {
                             .begin();
                         em.persist(kniha);
                         em.getTransaction()
-                            .commit();
-                        /*System.out.println("Autor: " + kniha.getAutor() + "***" + 
-                                           "ISBN: " + kniha.getIsbn()  + "***" +                                           
-                                           "Kl. slova: " + kniha.getKlucoveSlova()+   "***\n");  */                          
+                            .commit();                                          
                     }
                     kniha = new Kniha();
                 }

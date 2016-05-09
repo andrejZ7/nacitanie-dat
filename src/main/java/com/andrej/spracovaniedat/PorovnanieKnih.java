@@ -6,7 +6,6 @@ import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Pouzivatel;
 import com.andrej.sluzby.BookServices;
 import com.andrej.sluzby.CustomComparator;
-import com.andrej.sluzby.DataLoaderServices;
 import com.andrej.sluzby.PodobneKnihy;
 import com.andrej.sluzby.UserServices;
 import com.andrej.sluzby.PocetKnih;
@@ -23,8 +22,7 @@ import javax.persistence.EntityManager;
 public class PorovnanieKnih {
        
     public static void main(String [] args) {
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();               
-        DataLoaderServices dataLoader = new DataLoaderServices();
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();        
         UserServices userService = new UserServices();
         BookServices bookService = new BookServices();
         PocetKnih pocetKnih = new PocetKnih();
@@ -44,13 +42,7 @@ public class PorovnanieKnih {
         PodobneKnihy dvojicaKnih = new PodobneKnihy();
         int pocetPorovnavanychKnihA;
         int pocetPorovnavanychKnihB;
-        
-        
-        
-        List<Kniha> odporuceneKnihy = new ArrayList<Kniha>();
-        double uspesnost;
-        double zhoda = 0;
-                   
+        List<Kniha> odporuceneKnihy = new ArrayList<Kniha>();                           
         
         for (int i=0 ; i<pouzivateliaList.size() ; i++) {
             List<PodobneKnihy> dvojiceKnihList = new ArrayList<PodobneKnihy>();
@@ -62,7 +54,7 @@ public class PorovnanieKnih {
             pocetKnihB = userB.getKnihyList().size();
             pocetPorovnavanychKnihA = bookService.vypocitajPocetPorovnavanychKnih(pocetKnihA, pocetKnih.getPercentoPorovnavanychKnih());
             pocetPorovnavanychKnihB = bookService.vypocitajPocetPorovnavanychKnih(pocetKnihB, pocetKnih.getPercentoPorovnavanychKnih());
-            System.out.println("Pouzivatel c." + i + " id: " + userA.getId() + " //////////////////////////////////////////////////////////////////////////////////////////////");
+            System.out.println("Pouzivatel c." + i + " id: " + userA.getId());
             for (int k=0 ; k<pocetPorovnavanychKnihA ; k++) {
                 for (int l=0 ; l<pocetPorovnavanychKnihB ; l++){
                     if (!bookService.jeSpolocna(spolocneKnihy, userA.getKnihyList().get(k))) {
@@ -76,27 +68,12 @@ public class PorovnanieKnih {
                         dvojicaKnih.setPodobnost(podobnostKnih);
                         dvojiceKnihList.add(dvojicaKnih);
                         dvojicaKnih = new PodobneKnihy();                        
-                        /*System.out.println("Podobnost knihy cislo " + k + ". " + 
-                                           userA.getKnihyList().get(k).getId() + 
-                                           " a knihy cislo " + l + ". " + 
-                                           userB.getKnihyList().get(l).getId() +
-                                           " je *** " + podobnostKnih);*/
+                        
                     }                    
                 }                
             }            
             Collections.sort(dvojiceKnihList, new CustomComparator());
-            /*System.out.print("Spolocne knihy: ");
-            for (Kniha kniha : spolocneKnihy) {
-                System.out.print(kniha.getId() + ", ");
-            }*/
-            
-            
-            /*System.out.println("\nOdporucene knihy: ");
-            for (int x=0 ; x<pocetKnih.getPocetOdporucenychKnih() ; x++) {                
-                System.out.print(dvojiceKnihList.get(x).getKnihaUserB().getId() + ", ");
-            }                              
-            System.out.println("");*/
-            
+                        
             for (int x=0 ; x<pocetKnih.getPocetOdporucenychKnih() ; x++) {
                 odporuceneKnihy.add(dvojiceKnihList.get(x).getKnihaUserB());
             }            
@@ -120,19 +97,9 @@ public class PorovnanieKnih {
                                                
             em.getTransaction()
               .commit();
-            
-            if ( bookService.vyhodnotOdporuceneKnihy(userA.getKnihyList(), userA.getOdporuceneKnihy(), pocetKnih.getPercentoPorovnavanychKnih()) ) {
-                //System.out.println("OUU YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
-                zhoda++;
-            }
-            
+                                    
             odporuceneKnihy = new ArrayList<Kniha>();           
-        }
-        
-        uspesnost = (zhoda/pouzivateliaList.size()) * 100;
-        System.out.println("Pocet pouzivatelov: " + pouzivateliaList.size());
-        System.out.println("Zhoda : " + zhoda);
-        System.out.println("Uspesnost: " +uspesnost + "%");
+        }   
         
         em.close();
         PersistenceManager.INSTANCE.close();

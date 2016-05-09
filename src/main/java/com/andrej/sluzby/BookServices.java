@@ -4,7 +4,6 @@ import Jama.Matrix;
 import com.andrej.nacitaniedat.model.Kniha;
 import com.andrej.nacitaniedat.model.Mdt;
 import com.andrej.nacitaniedat.model.Pouzivatel;
-import com.andrej.spracovaniedat.PorovnanieKnih;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

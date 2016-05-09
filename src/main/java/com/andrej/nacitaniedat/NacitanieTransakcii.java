@@ -46,8 +46,7 @@ public class NacitanieTransakcii {
                         em.flush();
                     }                                     
                     em.getTransaction()
-                      .commit();
-                    //System.out.println("Pouzivatel: " + transakcia.getPouzivatel().getKatalogoveId());                    
+                      .commit();                                       
                     pouzivatel = new Pouzivatel();
                     kniha = new Kniha();
                 }

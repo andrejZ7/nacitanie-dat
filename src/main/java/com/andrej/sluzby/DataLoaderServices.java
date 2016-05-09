@@ -140,18 +140,14 @@ public class DataLoaderServices {
             idKniha = idArray[0];
         }
         
-        
-        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Kniha> query = critBld.createQuery(Kniha.class);  
         Root<Kniha> root = query.from(Kniha.class);
         
         query.where((critBld.equal(root.get("katalogoveId"), idKniha)));
         Query qu = em.createQuery(query);
-        //qu = em.createNativeQuery("SELECT kniha.id, kniha.autor, kniha.datum, kniha.isbn, kniha.katalogoveId, kniha.klucoveSlova, kniha.vydavatelstvo FROM kniha WHERE katalogoveId = ?");
-       // qu.setParameter(1, idKniha);
+        
         try{
-           // Kniha kniha = (Kniha) em.createNativeQuery("SELECT * FROM kniha WHERE katalogoveId = idKniha").getSingleResult();
             Kniha kniha = (Kniha) qu.getSingleResult();
             return kniha;
         }

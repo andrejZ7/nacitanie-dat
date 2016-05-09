@@ -33,8 +33,6 @@ public class NacitaniePouzivatelov {
                     em.persist(pouzivatel);
                     em.getTransaction()
                         .commit();
-                    
-                    
                 }                
                 count++;
             }

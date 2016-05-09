@@ -34,14 +34,12 @@ public class UserServices {
             for(int j=0 ; j<pocetPorovnavanychKnihB ; j++){
                 pocitadlo++;
                 if (Objects.equals(knihyA.get(i).getId(), knihyB.get(j).getId())){
-                    prienik++;
-                   // System.out.println("ZHODA ###############################################################");
+                    prienik++;                   
                 }
             }
         }
         double jaccardovaPodobnost = prienik / (zjednotenie - prienik);
-       // System.out.println(pocitadlo + " porovnani, " + poradie+ ". Podobnost " + "Prienik: " +prienik+ "     " +userA.getId()+ "/" +userB.getId() + " = " + jaccardovaPodobnost);
-        
+               
         PodobnyPouzivatel podobnost = new PodobnyPouzivatel();
         podobnost.setPouzivatel(userB);
         podobnost.setPodobnost(jaccardovaPodobnost);
@@ -49,7 +47,7 @@ public class UserServices {
     }
     
     public List<Pouzivatel> nacitajVsetkychPouzivatelov(EntityManager em) {
-        //EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        
         CriteriaBuilder critBld = em.getCriteriaBuilder();		
         CriteriaQuery<Pouzivatel> query = critBld.createQuery(Pouzivatel.class);  
         Root<Pouzivatel> root = query.from(Pouzivatel.class);
